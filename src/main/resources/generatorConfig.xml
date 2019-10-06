@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="C:\Users\work\.m2\repository\mysql\mysql-connector-java\8.0.17\mysql-connector-java-8.0.17.jar" />
+    <context id="context1">
+
+  	    <commentGenerator>
+	      <property name="suppressDate" value="true" />
+	    </commentGenerator>
+	    <!-- suppressAllComments -->
+
+		<!--JDBCのDB接続設定-->
+        <jdbcConnection
+            driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/timecard?serverTimezone=JST"
+			userId="root"
+		/>
+            <!--password="root" -->
+
+        <javaTypeResolver>
+        <!-- 数値型（Long, Integer, Short, etc.）をbigdecimalに変更させない -->
+        <property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!-- エンティティ（Model）の設定 -->
+        <javaModelGenerator
+            targetPackage="com.example.model"
+            targetProject="KisyaKadaiTimeCard/src/main/java/">
+            <property name="trimStrings" value="true"/>
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+
+        <!-- xmlの生成設定↓ -->
+        <sqlMapGenerator
+            targetPackage="com.example.repositoy"
+            targetProject="KisyaKadaiTimeCard/src/main/resources/">
+            <property name="trimStrings" value="true"/>
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- DAO（Mapper/Repository）設定↓ -->
+        <javaClientGenerator
+            targetPackage="com.example.repositoy"
+            targetProject="KisyaKadaiTimeCard/src/main/java/"
+            type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+		<!--生成対象テーブル "%"をワイルドカード的に使えるがテーブルごとに指定。-->
+        <!--
+	        <table schema="mydb"
+	            tableName="%"
+	            enableInsert="true"
+	            enableSelectByPrimaryKey="true"
+	            enableSelectByExample="true"
+	            enableUpdateByPrimaryKey="true"
+	            enableUpdateByExample="true"
+	            enableDeleteByPrimaryKey="true"
+	            enableDeleteByExample="true"
+	            enableCountByExample="true"
+	            selectByExampleQueryId="true"
+	            modelType="hierarchical"
+	        />
+        -->
+        <table schema="timecard"
+            tableName="m_role"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="m_team"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_user_detail"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_work_shift"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_work_unit_his"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_work_start_his"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_work_end_his"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="m_code"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+        <table schema="timecard"
+            tableName="t_request_info"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="true"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="true"
+            enableCountByExample="true"
+            selectByExampleQueryId="true"
+            modelType="hierarchical"
+        />
+    </context>
+</generatorConfiguration>
