@@ -94,8 +94,8 @@
 			</plugin>
 			<!-- エンティティ自動生成用 -->
 			<plugin>
-	      	  <groupId>org.mybatis.generator</groupId>
-	      	  <artifactId>mybatis-generator-maven-plugin</artifactId>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
