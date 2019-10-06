@@ -1,4 +1,4 @@
-package com.example.repositoy;
+package com.example.repository;
 
 import com.example.model.TRequestInfo;
 import com.example.model.TRequestInfoExample;

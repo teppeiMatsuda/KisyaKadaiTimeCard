@@ -7,7 +7,7 @@
         http://mybatis.org/schema/mybatis-spring
         http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <import resource="classpath:/META-INF/spring/projectName-env.xml" />
+    <import resource="classpath:/META-INF/spring/KisyaKadaiTimeCard-env.xml" />
 
     <bean id="sqlSessionFactory"
         class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -15,8 +15,12 @@
         <property name="configLocation"
             value="classpath:/META-INF/mybatis/mybatis-config.xml" />
     </bean>
+	<!-- ↓どちらでもOK -->
+	<!-- 	<mybatis:scan base-package="com.example.repository" /> -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	  	<property name="basePackage" value="com.example.repository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
 
-
-    <mybatis:scan base-package="com.example.domain.repository" />
 
 </beans>

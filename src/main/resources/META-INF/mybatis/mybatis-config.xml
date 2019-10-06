@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.example.domain.repository" />
+        <package name="com.example.repository" />
+        <package name="com.example.model" />
     </typeAliases>
 </configuration>

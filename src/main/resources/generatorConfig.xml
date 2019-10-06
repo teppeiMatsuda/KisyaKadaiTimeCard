@@ -30,7 +30,7 @@
 		</javaModelGenerator>
 
 		<!-- xmlの生成設定↓ -->
-		<sqlMapGenerator targetPackage="com.example.repositoy"
+		<sqlMapGenerator targetPackage="com.example.repository"
 			targetProject="KisyaKadaiTimeCard/src/main/resources/">
 			<property name="trimStrings" value="true" />
 			<property name="enableSubPackages" value="true" />
@@ -38,7 +38,7 @@
 
 		<!-- DAO（Mapper/Repository）設定↓ -->
 		<javaClientGenerator
-			targetPackage="com.example.repositoy"
+			targetPackage="com.example.repository"
 			targetProject="KisyaKadaiTimeCard/src/main/java/" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>

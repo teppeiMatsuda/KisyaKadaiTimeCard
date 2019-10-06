@@ -1,4 +1,4 @@
-package com.example.repositoy;
+package com.example.repository;
 
 import com.example.model.MCode;
 import com.example.model.MCodeExample;

@@ -9,18 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 
-	@RequestMapping("/")
-	public String index() {
-		return "redirect:/login";
-	}
+    /**
+     * ログインが成功した場合、このメソッドが呼び出される。
+     */
+    @RequestMapping("/")
+    public String login(Model model) {
+        //メインページ。
+        return "index";
+    }
 
 	@GetMapping("/login")
 	public String login() {
-		return "login";
+		return "/login";
 	}
 
 	@PostMapping("/login")
 	public String userAuth() {
+		return "redirect:/login-error";
+	}
+
+	@PostMapping("/authenticate")
+	public String authUser() {
 		return "redirect:/login-error";
 	}
 
