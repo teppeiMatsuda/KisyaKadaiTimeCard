@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-@ImportResource("classpath:META-INF/spring/spring-security.xml")
+@ImportResource("classpath:META-INF/spring/applicationContext.xml")
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 
 
@@ -20,25 +20,11 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-// 面白くないのでこちらで定義中 → spring-security.xml
-//		http
-//			.authorizeRequests()
-//				.antMatchers("/", "/login", "login-error").permitAll()
-//				.antMatchers("/**").hasRole("USER")
-//				.and()
-//			.formLogin()
-//				.loginPage("/login")
-//				.loginProcessingUrl("/authenticate")
-//				.usernameParameter("loginId")
-//				.passwordParameter("password")
-//				.defaultSuccessUrl("/")
-//				.failureUrl("/login-error");
-//
-//		http
-//			.authorizeRequests()
-//				.antMatchers("/registration", "/register","/result").permitAll();
+		// 1.データソースDB設定などはこちら → KishaKadaiTimeCard-env.xml
+		// 2.ドメイン(MapperBean)などの設定はこちら → KishaKadaiTimeCard-infra.xml
+		// 3.セキュリティ関連はこちら → spring-security.xml
+		// 4.アプリケーションコンテキスト(上記1～3やproperty等を読み込み) → applicationContext.xml
 	}
-
 
 	@Autowired
 	public void configureGrobal(AuthenticationManagerBuilder auth) throws Exception {
