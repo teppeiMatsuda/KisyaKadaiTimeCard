@@ -1,41 +1,18 @@
 package com.example.controller;
 
+import static com.example.common.PathConst.*;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(LOGIN_PAGE)
 public class LoginController {
 
-    /**
-     * ログインが成功した場合、このメソッドが呼び出される。
-     */
-    @RequestMapping("/")
-    public String login(Model model) {
-        //メインページ。
-        return "index";
+	public static final String HTML_PATH = LOGIN_PAGE;
+    @RequestMapping
+    public String index(Model model) {
+        return HTML_PATH;
     }
-
-	@GetMapping("/login")
-	public String login() {
-		return "/login";
-	}
-
-	@PostMapping("/login")
-	public String userAuth() {
-		return "redirect:/login-error";
-	}
-
-	@PostMapping("/authenticate")
-	public String authUser() {
-		return "redirect:/login-error";
-	}
-
-	@GetMapping("/login-error")
-	public String loginError(Model model) {
-		model.addAttribute("loginError", true);
-		return "login";
-	}
 }
