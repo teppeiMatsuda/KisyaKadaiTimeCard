@@ -20,6 +20,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+// 面白くないのでこちらで定義中 → spring-security.xml
 //		http
 //			.authorizeRequests()
 //				.antMatchers("/", "/login", "login-error").permitAll()

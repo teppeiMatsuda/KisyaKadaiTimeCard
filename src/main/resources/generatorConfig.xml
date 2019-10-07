@@ -54,7 +54,7 @@
 			enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
 			enableCountByExample="true" selectByExampleQueryId="true"
 			modelType="hierarchical" />
-<!-- 		<table schema="timecard" tableName="m_role" enableInsert="true"
+		<table schema="timecard" tableName="m_role" enableInsert="true"
 			enableSelectByPrimaryKey="true" enableSelectByExample="true"
 			enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
 			enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
@@ -107,6 +107,6 @@
 			enableSelectByExample="true" enableUpdateByPrimaryKey="true"
 			enableUpdateByExample="true" enableDeleteByPrimaryKey="true"
 			enableDeleteByExample="true" enableCountByExample="true"
-			selectByExampleQueryId="true" modelType="hierarchical" /> -->
+			selectByExampleQueryId="true" modelType="hierarchical" />
 	</context>
 </generatorConfiguration>

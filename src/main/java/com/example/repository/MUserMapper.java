@@ -80,6 +80,6 @@ public interface MUserMapper {
      * @param loginId
      * @return ユーザー情報
      */
-    MUser selectByLoginId(String loginId);
+    MUser selectByLoginId(@Param("loginId") String loginId);
 
 }
