@@ -79,7 +79,7 @@
 			error-page="/accessDenied" />
 
 		<sec:form-login login-page="/login"
-			default-target-url="/okokok" always-use-default-target="true"
+			default-target-url="/punch" always-use-default-target="true"
 			authentication-failure-url="/login-error"
 			login-processing-url="/authenticate"
 			username-parameter="loginId" password-parameter="password" />
@@ -87,7 +87,7 @@
 		<sec:intercept-url pattern="/**"
 			access="isAuthenticated()" />
 
-		<sec:logout logout-url="/logout" logout-success-url="/logout_fin"
+		<sec:logout logout-url="/logout" logout-success-url="/logout_complete"
 			delete-cookies="JSESSIONID" />
 
 	</sec:http>
@@ -136,6 +136,10 @@
 				<property name="errorPage" value="/error-page" />
 			</bean>
 		</property>
+	</bean>
+
+	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<property name="defaultFailureUrl" value="/login?error=true"/>
 	</bean>
 
 
