@@ -64,7 +64,9 @@ public class UserAccountService implements UserDetailsService {
 
 		// BCryptアルゴリズムで暗号化
 		// UserDetailsインターフェースにUserオブジェクト代入
-		User user = (User) new User(userInfo.getLoginId(), passwordEncoder.encode(userInfo.getPassword()), grantList);
+		System.out.println("エンコード前パスワード：" + userInfo.getPassword());
+		System.out.println("エンコード後：" + passwordEncoder.encode(userInfo.getPassword()));
+		User user = (User) new User(userInfo.getLoginId(), userInfo.getPassword(), grantList);
 		return user;
 	}
 
