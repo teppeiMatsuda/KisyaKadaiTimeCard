@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>LOGIN_PAGE</title>
+<link rel="stylesheet" th:href="@{/webjars/element-ui/lib/theme-chalk/index.css}" />
+<!-- <link rel="stylesheet" th:href="@{/css/main.css}" /> -->
+<script th:href="@{/js/main.js}" ></script>
+</head>
+<body>
+	<h1>ログインページ</h1>
+		<form th:action="@{/authenticate}" method="POST">
+
+		<table align="center">
+			<tr>
+				<td>ログインID：</td>
+				<td><input type="text" id="loginId" name="loginId" /></td>
+			</tr>
+			<tr>
+				<td>パスワード：</td>
+				<td><input type="password" id="password" name="password" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right">
+					<button type="submit">ログイン</button>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><a href="/Registration">新規登録</a></td>
+			</tr>
+		</table>
+	</form>
+	<div id="inputForm">
+	<el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="120px" class="demo-loginForm">
+	  <el-form-item label="ログインID" prop="loginId">
+	    <el-input type="loginId" v-model="loginForm.loginId" autocomplete="off"></el-input>
+	  </el-form-item>
+	  <el-form-item label="パスワード" prop="password">
+	    <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+	  </el-form-item>
+	  <el-form-item>
+	    <el-button type="primary" @click="submitForm('loginForm')">ログイン</el-button>
+	    <el-button @click="resetForm('loginForm')">クリア</el-button>
+	  </el-form-item>
+	</el-form>
+	</div>
+</body>
+<script th:src="@{/webjars/vue/vue.js}"></script>
+<script th:src="@{/webjars/element-ui/lib/index.js}"></script>
+<script th:src="@{/webjars/element-ui/lib/umd/locale/ja.js}"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script>
+var form = new Vue({
+	el: '#inputForm',
+	data: {
+		ok: false,
+		error: false,
+        loginForm: {
+          loginid: '',
+          password: ''}},
+          methods: {
+              submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                  if (valid) {
+                    alert('submit!');
+                  } else {
+                    console.log('error submit!!');
+                    return false;
+                  }
+                });
+              },
+              resetForm(formName) {
+                this.$refs[formName].resetFields();
+              }
+			}
+})
+</script>
+</html>

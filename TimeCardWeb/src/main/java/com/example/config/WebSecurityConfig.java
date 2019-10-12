@@ -15,5 +15,4 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 		// 3.セキュリティ関連はこちら → spring-security.xml
 		// 4.アプリケーションコンテキスト(上記1～3やproperty等を読み込み) → applicationContext.xml
 	}
-
 }
