@@ -33,6 +33,7 @@ public class UserAccountService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 		if (loginId == null || "".equals(loginId)) {
