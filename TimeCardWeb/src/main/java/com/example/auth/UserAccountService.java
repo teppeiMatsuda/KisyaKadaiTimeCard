@@ -1,7 +1,5 @@
 package com.example.auth;
 
-import static com.example.common.Const.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.common.Const;
 import com.example.model.MRole;
 import com.example.model.MRoleKey;
 import com.example.model.MUser;
@@ -47,7 +46,7 @@ public class UserAccountService implements UserDetailsService {
 			throw new UsernameNotFoundException("User not found: " + loginId);
 		}
 
-		if (userInfo.getDeleteFlag() != null && userInfo.getDeleteFlag() == DELETE_FLG_ON) {
+		if (userInfo.getDeleteFlag() != null && userInfo.getDeleteFlag() == Const.DELETE_FLG_ON) {
 			throw new UsernameNotFoundException("User not found: " + loginId);
 		}
 
