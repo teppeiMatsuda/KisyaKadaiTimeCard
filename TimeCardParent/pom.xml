@@ -19,6 +19,7 @@
 	<modules>
 		<module>TimeCardCommon</module>
 		<module>TimeCardWeb</module>
+		<module>TimeCardFrontEnd</module>
 	</modules>
 
 	<properties>
