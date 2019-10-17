@@ -4,6 +4,7 @@
     <groupId>com.example</groupId>
     <artifactId>TimeCard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath />
   </parent>
   <artifactId>TimeCardCommon</artifactId>
 </project>

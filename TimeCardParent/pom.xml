@@ -16,11 +16,20 @@
 	<name>TimeCard</name>
 	<description>This is the parent project for all projects.</description>
 
-	<modules>
+	<!-- <modules>
 		<module>TimeCardCommon</module>
 		<module>TimeCardWeb</module>
 		<module>TimeCardFrontEnd</module>
-	</modules>
+	</modules> -->
+<profiles>
+    <profile>
+        <modules>
+			<module>../TimeCardCommon</module>
+			<module>../TimeCardWeb</module>
+			<module>../TimeCardFrontEnd</module>       
+        </modules>
+    </profile>
+</profiles>
 
 	<properties>
 		<!-- java.version>11</java.version> -->
