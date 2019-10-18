@@ -15,17 +15,17 @@
       <el-form-item label="パスワード" prop="password">
         <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
       </el-form-item>
-        <el-button type="primary" @click="submitForm('loginForm')">ログイン</el-button>
+      <el-button type="primary" @click="submitForm('loginForm')">ログイン</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/ja'
-Vue.use(ElementUI, { locale })
+import Vue from "vue";
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+import locale from "element-ui/lib/locale/lang/ja";
+Vue.use(ElementUI, { locale });
 
 export default {
   name: "HelloWorld",
@@ -40,6 +40,16 @@ export default {
       loginForm: {
         loginId: "",
         password: ""
+      },
+      rules: {
+        loginId: [
+          { required: true, message: "ログインIDを入力してください" },
+          { max: 16, message: "16文字以内で入力してください。" },
+        ],
+        password: [
+          { required: true, message: "パスワードは必ず入力してください。" },
+          { max: 30, message: "30(暫定)文字以内で入力してください。" }
+        ]
       }
     };
   },
@@ -60,10 +70,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.el-form.loginForm{
-  padding-top:2%;
-  padding-left:20%;
-  padding-right:20%;
+.el-form.loginForm {
+  padding-top: 2%;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 h3 {
   margin: 40px 0 0;
