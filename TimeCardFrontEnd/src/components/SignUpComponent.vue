@@ -2,29 +2,36 @@
   <div class="inputForm">
     <h1>{{ msg }}</h1>
     <el-form
-      :model="loginForm"
+      :model="signUpForm"
       status-icon
       :rules="rules"
-      label-width="120px"
-      ref="loginForm"
-      class="loginForm"
+      label-width="150px"
+      ref="signUpForm"
+      class="sign_up_form"
     >
+      <el-form-item label="ユーザー名" prop="userName">
+        <el-input type="userName" v-model="signUpForm.userNamee" autocomplete="off"></el-input>
+      </el-form-item>
       <el-form-item label="ログインID" prop="loginId">
-        <el-input type="loginId" v-model="loginForm.loginId" autocomplete="off"></el-input>
+        <el-input type="loginId" v-model="signUpForm.loginId" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="パスワード" prop="password" id="password-div">
-        <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+      <el-form-item label="パスワード" prop="password">
+        <el-input type="password" v-model="signUpForm.password" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item id="signUpLinkDiv">
-        <p id="signUpLink">
-          Don't have an Account?
-          <router-link to="/signup">SignUp</router-link>
+      <el-form-item label="パスワード(確認)" prop="password">
+        <el-input type="password" v-model="signUpForm.passwordConfirm" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item id="loginLinkDiv">
+        <p id="loginLink">
+          Have an account? 
+          <router-link to="/">Login</router-link>
         </p>
       </el-form-item>
-      <el-button type="primary" @click="submitForm('loginForm')">ログイン</el-button>
+      <el-button type="primary" @click="submitForm('signUpForm')">登録</el-button>
     </el-form>
   </div>
 </template>
+
 
 <script>
 import Vue from "vue";
@@ -34,7 +41,7 @@ import locale from "element-ui/lib/locale/lang/ja";
 Vue.use(ElementUI, { locale });
 
 export default {
-  name: "LoginComponent",
+  name: "SignUpComponent",
   props: {
     msg: String
   },
@@ -42,17 +49,17 @@ export default {
     return {
       ok: false,
       error: false,
-      loginForm: {
+      signUpForm: {
         loginId: "",
         password: ""
       },
       rules: {
         loginId: [
           { required: true, message: "ログインIDを入力してください" },
-          { max: 16, message: "16文字以内で入力してください。" }
+          { max: 16, message: "16文字以内で入力してください。" },
         ],
         password: [
-          { required: true, message: "パスワードを入力してください。" },
+          { required: true, message: "パスワードは必ず入力してください。" },
           { max: 30, message: "30(暫定)文字以内で入力してください。" }
         ]
       }
@@ -73,36 +80,30 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.el-form.loginForm {
+.el-form.sign_up_form {
   padding-top: 2%;
   padding-left: 30%;
   padding-right: 30%;
 }
 
-#signUpLink {
+#loginLink {
   padding: 0px;
   margin: 2px;
   text-align: right;
   color: rgb(192, 190, 186);
 }
-#signUpLinkDiv.el-form-item__content{
+#loginLinkDiv.el-form-item__content{
   vertical-align: text-bottom;
 }
-#signUpLinkDiv{
-  margin-top: 10px;
-}
-#password-div {
-  margin-bottom: 0px;
+
+.el-button--primary{
+  background-color: #41B883;
+  border-color: #41B883;
+  /* border-color:rgb(94, 107, 109); */
 }
 
-.el-button--primary {
-  background-color: #41b883;
-  border-color: #41b883;
-}
-
-.el-form-item {
+.el-form-item{
   margin-right: 60px;
 }
 
