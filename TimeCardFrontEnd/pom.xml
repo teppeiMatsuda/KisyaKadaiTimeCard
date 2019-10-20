@@ -1,19 +1,22 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.example</groupId>
-    <artifactId>TimeCard</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-	<relativePath />
-  </parent>
+	<parent>
+		<groupId>com.example</groupId>
+		<artifactId>TimeCard</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath />
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	   	<frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+		<frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+		<start-class>com.example.TimeCardApplication</start-class>
 	</properties>
 
 	<artifactId>TimeCardFrontEnd</artifactId>
@@ -22,11 +25,31 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<!-- optional -->
+				<configuration>
+					<workingDirectory></workingDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<!-- optional -->
+				<configuration>
+					<installDirectory>target</installDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
 				<executions>
-					<!-- Install our node and npm version to run npm/node scripts-->
+					<!-- Install our node and npm version to run npm/node scripts -->
 					<execution>
 						<id>install node and npm</id>
 						<goals>
@@ -57,32 +80,21 @@
 						</goals>
 						<configuration>
 							<arguments>run build</arguments>
-            			</configuration>
+						</configuration>
 					</execution>
+					<!-- <execution> <id>webpack build</id> <goals> <goal>webpack</goal>
+						</goals> optional: the default phase is "generate-resources" <phase>generate-resources</phase>
+						<configuration> optional: if not specified, it will run webpack's default
+						build (and you can remove this whole <configuration> section.) <arguments>-p</arguments>
+						</configuration> </execution> -->
 					<!-- Run Unit tests with Jest -->
-<!-- 					<execution>
-					<id>npm run test:unit</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<phase>test</phase>
-					<configuration>
-						<arguments>run test:unit</arguments>
-					</configuration>
-					</execution> -->
+					<!-- <execution> <id>npm run test:unit</id> <goals> <goal>npm</goal>
+						</goals> <phase>test</phase> <configuration> <arguments>run test:unit</arguments>
+						</configuration> </execution> -->
 					<!-- Run End2End tests with Nightwatch -->
-					<!--
-					<execution>
-					<id>npm run test:e2e</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<phase>test</phase>
-					<configuration>
-					  	<arguments>run test:e2e</arguments>
-					</configuration>
-					</execution>
-					-->
+					<!-- <execution> <id>npm run test:e2e</id> <goals> <goal>npm</goal>
+						</goals> <phase>test</phase> <configuration> <arguments>run test:e2e</arguments>
+						</configuration> </execution> -->
 				</executions>
 			</plugin>
 		</plugins>

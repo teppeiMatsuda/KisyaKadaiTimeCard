@@ -7,4 +7,10 @@
     <relativePath />
   </parent>
   <artifactId>TimeCardCommon</artifactId>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+		<start-class>com.example.TimeCardApplication</start-class>
+	</properties>
 </project>

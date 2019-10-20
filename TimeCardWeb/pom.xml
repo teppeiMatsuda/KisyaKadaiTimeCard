@@ -13,19 +13,28 @@
   <packaging>war</packaging>
 
   <dependencies>
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>TimeCardCommon</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+               <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>TimeCardFrontEnd</artifactId>
             <version>${project.version}</version>
         </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -39,10 +48,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
@@ -69,23 +78,23 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.webjars/vue -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>vue</artifactId>
 			<version>2.6.10</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+		https://mvnrepository.com/artifact/org.webjars/jquery
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.4.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars.npm/element-ui -->
+		https://mvnrepository.com/artifact/org.webjars.npm/element-ui
 		<dependency>
 		    <groupId>org.webjars.npm</groupId>
 		    <artifactId>element-ui</artifactId>
 		    <version>2.12.0</version>
-		</dependency>
+		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
 		<dependency>
 		    <groupId>org.webjars</groupId>
@@ -93,4 +102,47 @@
 		    <version>0.37</version>
 		</dependency>
   </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy Vue.js frontend content</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/main/resources/public</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/../TimeCardFrontEnd/target/deliverables</directory>
+                                    <includes>
+                                        <include>static/</include>
+                                        <include>index.html</include>
+										<include>favicon.ico</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+
 </project>
