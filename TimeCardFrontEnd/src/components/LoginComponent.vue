@@ -31,7 +31,15 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import locale from "element-ui/lib/locale/lang/ja";
+import axios from 'axios';
 Vue.use(ElementUI, { locale });
+
+// CSRFトークン取得
+const CSRF_TOKEN = document.cookie.match(new RegExp(`XSRF-TOKEN=([^;]+)`))[1];
+const instance = axios.create({
+  headers: { "X-XSRF-TOKEN": CSRF_TOKEN }
+});
+export const AXIOS = instance;
 
 export default {
   name: "LoginComponent",
@@ -43,7 +51,7 @@ export default {
       ok: false,
       error: false,
       loginForm: {
-        loginId: "",
+        loginId: "axios45",
         password: ""
       },
       rules: {
@@ -62,7 +70,33 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          alert("submit!(まだ))");
+          const data = new FormData();
+          data.append("loginId",this.loginForm.loginId);
+          data.append("password",this.loginForm.password);
+          console.warn(this.loginForm.loginId + 'ログインIDですか？');
+          console.warn(this.serverPass + ':サーバーパスは何？');
+         
+          const params = new URLSearchParams();
+          // spring securityのログインはformデータを送る必要がある。
+          // 無加工だとjsonで送ってしまうので加工するしないといけない。
+          //(const data = new FormData()
+          // AXIOS.post('/api/login', data)ではダメだったのでまた違うっぽい(？))
+          params.append('loginId', this.loginForm.loginId);
+          params.append('password', this.loginForm.password);
+          AXIOS.get('/api/login', params
+          //
+          // , {transformRequest: [function(data) {
+          //     const formData = new FormData();
+          //     formData.append("loginId",this.loginForm.loginId);
+          //     formData.append("password",this.loginForm.password);
+          //     return formData;
+          //   }]
+          // })
+          )
+          .then((response) => {
+            console.warn(response);
+          })
         } else {
           alert("error submit!!");
           return false;

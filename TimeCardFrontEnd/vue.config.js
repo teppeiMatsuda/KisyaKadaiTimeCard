@@ -1,7 +1,7 @@
 // vue.config.js
 module.exports = {
-  // proxy all webpack dev-server requests starting with /api
-  // to our Spring Boot backend (localhost:8088) using http-proxy-middleware
+  // proxy all webpack dev-server requests starting with /api 叩き先によるらしい
+  // to our Spring Boot backend (localhost:8088) using http-proxy-middleware 8090に設定中
   // see https://cli.vuejs.org/config/#devserver-proxy
   devServer: {
     proxy: {
