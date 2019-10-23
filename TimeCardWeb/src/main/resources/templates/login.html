@@ -34,7 +34,7 @@
 			</tr>
 		</table>
 	</form>
-	<div id="inputForm">
+<!-- 	<div id="inputForm">
 	<el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="120px" class="demo-loginForm">
 	  <el-form-item label="ログインID" prop="loginId">
 	    <el-input type="loginId" v-model="loginForm.loginId" autocomplete="off"></el-input>
@@ -47,14 +47,14 @@
 	    <el-button @click="resetForm('loginForm')">クリア</el-button>
 	  </el-form-item>
 	</el-form>
-	</div>
+	</div> -->
 </body>
 <script th:src="@{/webjars/vue/vue.js}"></script>
 <script th:src="@{/webjars/element-ui/lib/index.js}"></script>
 <script th:src="@{/webjars/element-ui/lib/umd/locale/ja.js}"></script>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script>
-var form = new Vue({
+/* var form = new Vue({
 	el: '#inputForm',
 	data: {
 		ok: false,
@@ -77,6 +77,6 @@ var form = new Vue({
                 this.$refs[formName].resetFields();
               }
 			}
-})
+}) */
 </script>
 </html>
