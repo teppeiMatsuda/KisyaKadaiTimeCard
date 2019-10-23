@@ -10,7 +10,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="classpath:/META-INF/spring/KisyaKadaiTimeCard-domain.xml" />
-	<sec:http auto-config="false" use-expressions="true" request-matcher="ant">
+	<sec:http auto-config="false" use-expressions="true" request-matcher="ant" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<sec:intercept-url pattern="/resources/static/**" access="permitAll" />
 <!-- 		<sec:intercept-url pattern="/" access="denyAll"/> -->
 		<sec:intercept-url pattern="/login" access="permitAll" />
 		<sec:intercept-url pattern="/api/login" access="permitAll" />
@@ -19,7 +20,6 @@
 <!-- 		<sec:intercept-url pattern="/accessDenied" access="permitAll" />
 		<sec:intercept-url pattern="/login-error" access="permitAll" />
 		<sec:intercept-url pattern="/logout" access="permitAll" /> -->
-		<sec:intercept-url pattern="/resources/static/**" access="permitAll" />
 <!-- 		<sec:intercept-url pattern="/punch/*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
     	<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />  -->
 
@@ -28,10 +28,10 @@
 <!-- 		<sec:access-denied-handler error-page="" /> -->
 
 		<sec:custom-filter ref="csrfTokenFilter" after="CSRF_FILTER"/>
-		<sec:form-login login-page="/"
-
+		<sec:form-login login-page="/index"
 			login-processing-url="/api/login"
 			username-parameter="loginId" password-parameter="password" />
+
 <!-- 			 always-use-default-target="true"
 			authentication-failure-url="/fdfdfdfdfdfdfd" -->
 <!-- 	<sec:logout logout-url="/logout" logout-success-url="/logout_complete"
@@ -40,14 +40,14 @@
 	</sec:http>
 
 	<!-- 独自実装のUserDetailsServiceを指定する↓ -->
-	 <sec:authentication-manager>
+<!-- 	 <sec:authentication-manager>
          <sec:authentication-provider
           user-service-ref="userAccountService">
              <sec:password-encoder ref="passwordEncoder" />
          </sec:authentication-provider>
-     </sec:authentication-manager>
+     </sec:authentication-manager> -->
 
-	<bean id="sessionAuthenticationStrategy"
+<!-- 	<bean id="sessionAuthenticationStrategy"
 		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
 		<constructor-arg index="0">
 			<list>
@@ -60,11 +60,16 @@
 				</bean>
 			</list>
 		</constructor-arg>
+	</bean> -->
+
+	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+    	<constructor-arg value="/api/login" />
 	</bean>
 
-<!-- 	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    	<constructor-arg value="/api/login" />
-	</bean> -->
+
+
+	<bean id="simpleAuthenticationEntryPoint" class="com.example.auth.SimpleAuthenticationEntryPoint"></bean>
+
 
 	<bean id="passwordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
@@ -77,7 +82,7 @@
 		class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository" />
 
 
- 	<bean id="csrfFilter"
+<!--  	<bean id="csrfFilter"
 		class="org.springframework.security.web.csrf.CsrfFilter">
 		<constructor-arg index="0" ref="csrfTokenRepository" />
 		<property name="accessDeniedHandler">
@@ -86,7 +91,7 @@
 				<property name="errorPage" value="/error-page" />
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<!-- 認証時のエラーハンドリング↓ -->
 <!-- 	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">

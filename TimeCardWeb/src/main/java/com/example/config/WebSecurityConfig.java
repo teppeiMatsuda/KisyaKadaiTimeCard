@@ -1,24 +1,56 @@
 package com.example.config;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.BeanInitializationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import com.example.auth.CsrfTokenFilter;
-import com.example.auth.JsonLoginIDPasswordAuthenticationFilter;
+import com.example.auth.SimpleAccessDeniedHandler;
+import com.example.auth.SimpleAuthenticationEntryPoint;
+import com.example.auth.SimpleAuthenticationFailureHandler;
+import com.example.auth.SimpleAuthenticationSuccessHandler;
+
+
+
+
 
 @EnableWebSecurity
 @ImportResource("classpath:META-INF/spring/applicationContext.xml")
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
+
+
+	private /*final*/ AuthenticationManagerBuilder authenticationManagerBuilder;
+
+	private /*final*/ UserDetailsService userDetailsService;
+
+	public void WebSecurityConfiguration(
+		    AuthenticationManagerBuilder _authenticationManagerBuilder,
+		    UserDetailsService _userDetailsService
+		  ) {
+		    this.authenticationManagerBuilder = _authenticationManagerBuilder;
+		    this.userDetailsService = _userDetailsService;
+		  }
+
 
     private CsrfTokenRepository getCsrfTokenRepository() {
         // Javascriptから取得できるようにHttponlyをfalseにする/https以外(http)でも有効に設定する。
@@ -28,12 +60,23 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
         return tokenRepository;
     }
 
-    // ↓ 多分もういらない。
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
     }
+
+    @PostConstruct
+    public void init() {
+      try {
+        // Point.3
+        authenticationManagerBuilder
+          .userDetailsService(userDetailsService)
+          .passwordEncoder(passwordEncoder());
+      } catch (Exception e) {
+        throw new BeanInitializationException("Security configuration failed", e);
+      }
+    }
+
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -46,73 +89,68 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 		// → Responseに対してセッションIDが付加されるがCSRFトークンが含まれない…
 //        http.authorizeRequests()
 //        	.and().csrf().csrfTokenRepository(getCsrfTokenRepository());
-		http.authorizeRequests().anyRequest().authenticated();
-		http
-//		.httpBasic()
-//        .and()
-	      .csrf()
-	        .csrfTokenRepository(getCsrfTokenRepository())
-		.ignoringAntMatchers("");
-		// ↑ CSRFトークン無くてもOKなパスを設定してるだけなので必要ないと思う…。
+		//http.authorizeRequests().anyRequest().authenticated();
+
+
 		http.addFilterAfter(new CsrfTokenFilter(), CsrfFilter.class);
-//        http.httpBasic().and().authorizeRequests()
-//        .antMatchers("/").permitAll().anyRequest()
-//        .authenticated().and().csrf()
-//        .csrfTokenRepository(csrfTokenRepository()).and()
-//        .addFilterAfter(new CsrfCookieFilter(), CsrfFilter.class);
-//        .and().csrf()
-//        .csrfTokenRepository(getCsrfTokenRepository()).and()
-//        .addFilterAfter(new CsrfCookieFilter(), CsrfFilter.class);
+         //.csrf().disable(); // disable cross site request forgery, as we don't use cookies - otherwise ALL PUT, POST, DELETE will get HTTP 403!
 
-//		http.csrf().disable();
-//      http.authorizeRequests()
-//    	.and().csrf().csrfTokenRepository(getCsrfTokenRepository());
-
-//        http.csrf()
-//        .csrfTokenRepository(getCsrfTokenRepository());
-
-		// ログインパラメーターの設定
-        JsonLoginIDPasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter =
-            new JsonLoginIDPasswordAuthenticationFilter(authenticationManager());
-        jsonUsernamePasswordAuthenticationFilter.setLoginIdParameter("loginId");
-        jsonUsernamePasswordAuthenticationFilter.setPasswordParameter("password");
-        // ログイン後にリダイレクトのリダイレクトを抑制
-        jsonUsernamePasswordAuthenticationFilter
-            .setAuthenticationSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK));
-        // ログイン失敗時のリダイレクト抑制
-        jsonUsernamePasswordAuthenticationFilter
-            .setAuthenticationFailureHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_UNAUTHORIZED));
-
-        // FormログインのFilterを置き換える
-        //http.addFilterAt(jsonUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-        // Spring Securityデフォルトでは、アクセス権限（ROLE）設定したページに未認証状態でアクセスすると403を返すので、
-        // 401を返すように変更
-        http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-        // 今回は、403エラー時にHTTP Bodyを返さないように設定
-        http.exceptionHandling().accessDeniedHandler((req, res, ex) -> {
-        		System.out.println(res.getContentType() + "疎通確認");
-        		res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        		});
-
-        // ログアウト
-        http
-            .logout()
+		// EXCEPTION
+		http
+        .exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPoint())
+            .accessDeniedHandler(accessDeniedHandler())
+        .and()
+        // LOGIN
+        .formLogin()
+            .loginProcessingUrl("/api/login").permitAll()
+                .usernameParameter("loginId")
+                .passwordParameter("password")
+            .successHandler(authenticationSuccessHandler())
+            .failureHandler(authenticationFailureHandler())
+        .and()
+        // LOGOUT
+        .logout()
             .logoutUrl("/api/logout")
-            // ログアウト時のリダイレクト抑制
-            .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-            .invalidateHttpSession(true);
-//        http
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No session will be created or used by spring security
-//        .and()
-//            .httpBasic()
-//        .and()
-//            .authorizeRequests()
-
-                //.anyRequest().authenticated() // protect all other requests
-        //http
-        //.and()
-            //.csrf().disable(); // disable cross site request forgery, as we don't use cookies - otherwise ALL PUT, POST, DELETE will get HTTP 403!
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+            .logoutSuccessHandler(logoutSuccessHandler())
+            //.addLogoutHandler(new CookieClearingLogoutHandler())
+        .and()
+         // CSRF
+        .csrf()
+            //.disable()
+            //.ignoringAntMatchers("/login")
+            .csrfTokenRepository(new CookieCsrfTokenRepository());
 	}
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth,
+                                @Qualifier("userAccountService") UserDetailsService userDetailsService,
+                                PasswordEncoder passwordEncoder) throws Exception {
+        auth.eraseCredentials(true)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+    }
+
+
+    AuthenticationEntryPoint authenticationEntryPoint() {
+        return new SimpleAuthenticationEntryPoint();
+    }
+
+    AccessDeniedHandler accessDeniedHandler() {
+        return new SimpleAccessDeniedHandler();
+    }
+
+    AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new SimpleAuthenticationSuccessHandler();
+    }
+
+    AuthenticationFailureHandler authenticationFailureHandler() {
+        return new SimpleAuthenticationFailureHandler();
+    }
+
+    LogoutSuccessHandler logoutSuccessHandler() {
+        return new HttpStatusReturningLogoutSuccessHandler();
+    }
 }

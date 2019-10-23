@@ -84,7 +84,7 @@ export default {
           // AXIOS.post('/api/login', data)ではダメだったのでまた違うっぽい(？))
           params.append('loginId', this.loginForm.loginId);
           params.append('password', this.loginForm.password);
-          AXIOS.get('/api/login', params
+          AXIOS.post('/api/login', params
           //
           // , {transformRequest: [function(data) {
           //     const formData = new FormData();
