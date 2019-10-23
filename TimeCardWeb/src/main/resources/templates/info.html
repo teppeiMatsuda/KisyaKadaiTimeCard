@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_csrf" th:content="${_csrf.token}"/>
 <title>打刻</title>
+<script src="/js/info.js"  th:src="@{/js/info.js}" defer></script>
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>
 </head>
 <body>
 	<h1>打刻ページ</h1>
+	<p><input type="button"  id="attendance" value="出勤"/><input type="button"  id="leave" value="退勤"/></p>
 test
 
 </body>
