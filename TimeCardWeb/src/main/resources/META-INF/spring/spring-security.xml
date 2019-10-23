@@ -15,17 +15,18 @@
 		<sec:intercept-url pattern="/login" access="permitAll" />
 		<sec:intercept-url pattern="/signup" access="permitAll" />
     	<sec:intercept-url pattern="/index" access="denyAll"/>
+    	<sec:intercept-url pattern="/authenticate" access="permitAll"/>
 		<sec:intercept-url pattern="/accessDenied" access="permitAll" />
 		<sec:intercept-url pattern="/login-error" access="permitAll" />
 		<sec:intercept-url pattern="/logout" access="permitAll" />
 		<sec:intercept-url pattern="/resources/static/**" access="permitAll" />
-		<sec:intercept-url pattern="/punch/*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/info" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
     	<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 
 		<sec:access-denied-handler error-page="/accessDenied" />
 
 		<sec:form-login login-page="/login"
-			default-target-url="/punch" always-use-default-target="true"
+			default-target-url="/info" always-use-default-target="true"
 			authentication-failure-url="/login"
 			login-processing-url="/authenticate"
 			username-parameter="loginId" password-parameter="password" />
