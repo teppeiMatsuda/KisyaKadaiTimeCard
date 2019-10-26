@@ -1,41 +1,42 @@
 $(function(){
 
-
+	// 出勤ボタン
 	const attendanceB = document.querySelector("#attendance");
-
-	console.log(attendanceB);
-
+	// 退勤ボタン
 	const leaveB = document.querySelector("#leave");
 
-	console.log(leaveB);
-
-	attendanceB.addEventListener("click", function(e){
-		console.log(this + "this");
-		console.log(e + "e")
-		postAttendance(e);
+	// 出勤ボタンのクリックイベントにメソッドを紐づけ。
+	attendanceB.addEventListener("click", function(){
+		postAttendance(this);
+	});
+	// 退勤ボタンのクリックイベントにメソッドを紐づけ。
+	leaveB.addEventListener("click", function(){
+		postAttendance(this);
 	});
 
+	// ポスト用メソッド
 	function postAttendance(buttonInfo) {
-		//buttonInfo.getId
-
-	    var token = $("meta[name='_csrf']").attr("content");
-	    var header = $("meta[name='_csrf_header']").attr("content");
+	    const token = $("meta[name='_csrf']").attr("content");
+	    const header = $("meta[name='_csrf_header']").attr("content");
 	    $(document).ajaxSend(function(e, xhr, options) {
 	      xhr.setRequestHeader(header, token);
 	    });
-
 		$.ajax({
 		      type: "POST",
 		      contentType : 'application/json; charset=utf-8',
-/*//		      dataType : 'json',
-*/		      url: "/info/attendance",
-		      data: JSON.stringify(buttonInfo),
+		      dataType : 'json',
+		      url: "/info/attendance",
+		      data:buttonInfo.id
 		}).done(function(data,textStatus,jqXHR) {
-			  	console.log("完了" + data);
+		  	if(data["registResult"]){
+		  		buttonInfo.disabled=true;
+		  	}else{
+
+		  	}
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			console.log("失敗");
 		}).always(function(test){
-			console.log("オールウェイズ" + test.toString());
+			console.log("オールウェイズ" + test);
 		});
 	}
 

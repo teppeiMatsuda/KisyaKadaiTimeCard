@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,17 @@
 <script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>
 </head>
 <body>
+<div id="background">
+<div id="maskDispDiv"></div>
 	<h1>メインページ</h1>
-	<p><input type="button"  id="attendance" value="出勤"/><input type="button"  id="leave" value="退勤"/></p>
-
+	<div id="ButtonDiv" th:if="${roleId != '1'}")>
+		<p>出退勤登録</p>
+		<p>
+			<input type="button"  id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
+			<input type="button"  id="leave" value="退勤" th:disabled = "${wEndFlg == true || roleId == '1'}"/>
+		</p>
+		<p><input type="button" id="request" value="申請"/></p>
+	</div>
+</div>
 </body>
 </html>

@@ -11,4 +11,14 @@ public class Const {
 	 * 削除フラグOFF（未削除）
 	 */
 	public static final String DELETE_FLG_OFF = "0";
+
+	/**
+	 * 出勤ボタン要素ID
+	 */
+	public static final String ATTENDANCE = "attendance";
+
+	/**
+	 * 退勤ボタン要素ID
+	 */
+	public static final String LEAVE = "leave";
 }

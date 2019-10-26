@@ -249,4 +249,18 @@
 		WHERE user_id = #{userId,jdbcType=INTEGER}
 			AND work_date = CURRENT_DATE();
   </select>
+      <!--
+      work_unit_his_idを元に最新のレコードを取得する。
+    -->
+  <select id="selectLatestRecord" resultMap="BaseResultMap">
+	SELECT
+	    work_unit_his_id,
+	    user_id,
+	    work_date
+	FROM
+	    t_work_unit_his
+	ORDER BY
+	    work_unit_his_id DESC
+	LIMIT 1;
+  </select>
 </mapper>
