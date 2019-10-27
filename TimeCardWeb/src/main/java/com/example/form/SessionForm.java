@@ -13,8 +13,18 @@ import lombok.Setter;
 public class SessionForm implements Serializable {
 
 	/**
+	 * シリアライズ用
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 現在ログイン中ユーザーのID
 	 */
 	Integer UserId;
+
+	/**
+	 * 出退勤紐づけテーブルレコードのID
+	 */
+	Integer tWorkUnitHisId;
 
 }
