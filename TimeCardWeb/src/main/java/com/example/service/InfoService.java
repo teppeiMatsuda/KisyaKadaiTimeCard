@@ -131,7 +131,7 @@ public class InfoService {
 					throw new CustomServiceException("出勤記録の登録に失敗しました。");
 				}
 			}else if(elementID.equals(Const.LEAVE)) {
-				if(session.getTWorkUnitHisId() == null || session.getTWorkUnitHisId().equals("")) {
+				if(session.getTWorkUnitHisId() == null) {
 					throw new CustomServiceException("出勤記録の取得に失敗しました。");
 				}
 				TWorkUnitHis updateTWorkUnit = new TWorkUnitHis();
