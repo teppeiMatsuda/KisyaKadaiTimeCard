@@ -17,9 +17,8 @@
 	<description>This is the parent project for all projects.</description>
 
 	<modules>
-		<module>TimeCardCommon</module>
-		<module>TimeCardWeb</module>
-		<module>TimeCardFrontEnd</module>
+		<module>../TimeCardCommon</module>
+		<module>../TimeCardWeb</module>
 	</modules>
 
 	<properties>
