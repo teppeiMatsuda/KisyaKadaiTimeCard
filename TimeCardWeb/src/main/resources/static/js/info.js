@@ -28,11 +28,9 @@ $(function(){
 		      url: "/info/attendance",
 		      data:buttonInfo.id
 		}).done(function(data,textStatus,jqXHR) {
-		  	if(data["registResult"]){
-		  		buttonInfo.disabled=true;
-		  	}else{
-
-		  	}
+		  	if(data["registResult"]) buttonInfo.disabled = true;
+		  	console.log(buttonInfo.value);
+		  	if(buttonInfo.value == '出勤') leaveB.disabled = false;
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			console.log("失敗");
 		}).always(function(test){

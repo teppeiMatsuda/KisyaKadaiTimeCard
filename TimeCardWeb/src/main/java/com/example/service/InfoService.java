@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.common.Const;
 import com.example.exception.CustomServiceException;
+import com.example.form.SessionForm;
 import com.example.model.MUser;
 import com.example.model.TWorkEndHis;
 import com.example.model.TWorkStartHis;
@@ -71,7 +72,13 @@ public class InfoService {
 			// 返り値に出勤フラグをセット(true)、2以上は考慮しない。
 			userStateMap.put("wStartFlg", true);
 			TWorkUnitHis todayAttRecord = tWorkUnitHisList.get(0);
-			TWorkEndHis todayWorkEndRecord = tWorkEndHisMapper.selectByWorkUnitHisId(todayAttRecord.getWorkUnitHisId());
+
+			// 出退勤紐づけテーブルレコードのIDを取得、返却用Mapに含める。
+			Integer tWorkUnitHisId = todayAttRecord.getWorkUnitHisId();
+			userStateMap.put("tWorkUnitHisId", tWorkUnitHisId);
+
+			// 出退勤紐づけテーブルレコードのIDを使用して退勤履歴を検索する。
+			TWorkEndHis todayWorkEndRecord = tWorkEndHisMapper.selectByWorkUnitHisId(tWorkUnitHisId);
 
 			if (todayWorkEndRecord != null) {
 				userStateMap.put("wEndFlg", true);
@@ -94,12 +101,13 @@ public class InfoService {
 	}
 
 	@Transactional
-	public Boolean pushAttButton(String elementID, Integer userId) throws CustomServiceException {
+	public Map<String, Object> pushAttButton(String elementID, SessionForm session) throws CustomServiceException {
+		Map<String, Object> attResultMap = new HashMap<>();
 		if(!"".equals(elementID)) {
 			if(elementID.equals(Const.ATTENDANCE)) {
 				TWorkUnitHis workUnitRec = new TWorkUnitHis();
 				// ユーザーIDをセット
-				workUnitRec.setUserId(userId);
+				workUnitRec.setUserId(session.getUserId());
 				// 現在の日付をセット
 				workUnitRec.setWorkDate(new Date());
 				// インサート実行
@@ -109,7 +117,8 @@ public class InfoService {
 					throw new CustomServiceException("出勤記録の登録に失敗しました。");
 				}
 				TWorkUnitHis latestRecord = tWorkUnitMapper.selectLatestRecord();
-
+				// 返却用マップに登録したレコードのIDを含める。
+				attResultMap.put("latestRecordId", latestRecord.getWorkUnitHisId());
 				TWorkStartHis tWorkStartRec = new TWorkStartHis();
 				// 登録済みの紐づけテーブルのIDをセット
 				tWorkStartRec.setWorkUnitHisId(latestRecord.getWorkUnitHisId());
@@ -121,14 +130,33 @@ public class InfoService {
 				if(resultNum == 0) {
 					throw new CustomServiceException("出勤記録の登録に失敗しました。");
 				}
-
 			}else if(elementID.equals(Const.LEAVE)) {
+				if(session.getTWorkUnitHisId() == null || session.getTWorkUnitHisId().equals("")) {
+					throw new CustomServiceException("出勤記録の取得に失敗しました。");
+				}
+				TWorkUnitHis updateTWorkUnit = new TWorkUnitHis();
+				// レコードIDをセット
+				updateTWorkUnit.setWorkUnitHisId(session.getTWorkUnitHisId());
+				// ユーザーIDをセット
+				updateTWorkUnit.setUserId(session.getUserId());
+				// レコードをアップデート
+				tWorkUnitMapper.updateByPrimaryKeySelective(updateTWorkUnit);
 
-
+				TWorkEndHis tWorkEndRec = new TWorkEndHis();
+				// レコードIDをセット。
+				tWorkEndRec.setWorkUnitHisId(session.getTWorkUnitHisId());
+				// 現在時刻をセット。
+				tWorkEndRec.setEndOfWorkTime(new Date());
+				// インサート実行
+				int leaveResult = tWorkEndHisMapper.insert(tWorkEndRec);
+				
+				if(leaveResult == 0) {
+					throw new CustomServiceException("退勤記録の登録に失敗しました。");
+				}
 			}
-			return true;
+			attResultMap.put("attResult", true);
+			return attResultMap;
 		}
 		throw new CustomServiceException("クライアントから不正な値が送信されました。");
 	}
-
 }

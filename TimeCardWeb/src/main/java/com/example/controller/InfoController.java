@@ -77,7 +77,12 @@ public class InfoController {
     	// 返り値準備
     	Map<String, Object> resultMap = new ConcurrentHashMap<>();
         try {
-			resultMap.put("registResult",infoService.pushAttButton(elementID, session.getUserId()));
+			// サービスメソッド実行、返り値受け取り。
+			Map<String, Object> recieveOnlyMap = infoService.pushAttButton(elementID, session);
+			// 登録結果を返却地に含める。
+			resultMap.put("registResult", (Boolean)recieveOnlyMap.get("attResult"));
+			// セッションに登録後のレコードIDを設定する。
+			session.setTWorkUnitHisId((Integer)recieveOnlyMap.get("latestRecordId"));
 			return resultMap;
         } catch (CustomServiceException e) {
 			e.printStackTrace();
