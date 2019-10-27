@@ -182,4 +182,18 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="selectByWorkUnitHisId" parameterType="Integer" resultMap="BaseResultMap">
+    <!--
+      workUnitHisIdを元にして1件のレコードを取得するSELECT文です。
+      java側の@Param{"id"}は同変数のプレースホルダ#{id}に差し込まれます。
+      ${xxx}でも同様のことができますがSQLインジェクション対策のため#が推奨されます。
+    -->
+    SELECT
+    	work_unit_his_id,
+    	end_of_work_time
+    FROM
+    	t_work_end_his
+    WHERE
+	    work_unit_his_id = #{id};
+  </select>
 </mapper>
