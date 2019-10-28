@@ -68,7 +68,7 @@ public class InfoController {
 
 		// セッション情報持ち回り用フォームBeanにユーザーID及び権限IDを設定。
 		session.setUserId((Integer)userStateMap.get("userId"));
-
+		session.setTWorkUnitHisId((Integer)userStateMap.get("tWorkUnitHisId"));
 		// 開発時の確認用なので後で削除する ↓
 		System.out.println("---状態マップ内容確認---");
 		userStateMap.forEach((key, value) ->{
