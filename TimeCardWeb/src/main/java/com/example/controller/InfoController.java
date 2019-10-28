@@ -28,7 +28,7 @@ public class InfoController {
 	public static final String HTML_PATH = INFO_PAGE;
 
 	/**
-	 * セッション情報持ち回り用フォームクラス
+	 * セッション情報持ち回り用フォームクラス(セッションスコープ)
 	 */
 	@Autowired
 	SessionForm session;
@@ -39,6 +39,12 @@ public class InfoController {
 	@Autowired
 	InfoService infoService;
 
+	/**
+	 * ログイン後に呼ばれる初期表示用のメソッドです。
+	 * @param model モデル
+	 * @param principal 認証情報
+	 * @return htmlパス
+	 */
     @RequestMapping
     public String index(Model model, UsernamePasswordAuthenticationToken principal) {
     	Map<String,Object> userStateMap = null;
@@ -50,10 +56,6 @@ public class InfoController {
 			e.printStackTrace();
 			return HTML_PATH;
 		}
-    	System.out.println("状態マップ内容確認");
-		userStateMap.forEach((key, value) ->{
-			System.out.println(key + ":" + value);
-		}) ;
 
 		// 出退勤フラグとユーザーのロールIDを画面側に受け渡し。
 		model.addAttribute("wStartFlg", (Boolean)userStateMap.get("wStartFlg"));
@@ -67,10 +69,24 @@ public class InfoController {
 		// セッション情報持ち回り用フォームBeanにユーザーID及び権限IDを設定。
 		session.setUserId((Integer)userStateMap.get("userId"));
 
+		// 開発時の確認用なので後で削除する ↓
+		System.out.println("---状態マップ内容確認---");
+		userStateMap.forEach((key, value) ->{
+			System.out.println(key + ":" + value);
+		}) ;
+		System.out.println("---状態マップ内容確認終了---");
+		// セッション内容確認
+		System.out.println(session.toString());
+		// 削除予定ここまで ↑
+
         return HTML_PATH;
     }
 
-
+	/**
+	 * クライアントからjsonでボタンのIDを受け取り出退勤どちらかの履歴を登録するメソッド。
+	 * @param elementID html要素のID（出勤ボタンor退勤ボタン）
+	 * @return 処理結果(Boolean)を含むマップ
+	 */
     @RequestMapping(value = "/attendance", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getSelectData(@RequestBody String elementID) {
@@ -85,6 +101,7 @@ public class InfoController {
 			session.setTWorkUnitHisId((Integer)recieveOnlyMap.get("latestRecordId"));
 			return resultMap;
         } catch (CustomServiceException e) {
+			// 登録処理に失敗。
 			e.printStackTrace();
 			resultMap.put("registResult", false);
 			return resultMap;

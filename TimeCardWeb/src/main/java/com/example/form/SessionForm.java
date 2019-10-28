@@ -27,4 +27,16 @@ public class SessionForm implements Serializable {
 	 */
 	Integer tWorkUnitHisId;
 
+	/**
+	 * セッションフォーム内容確認用メソッド
+	 * @return セッションフォーム保持データ内容文字列
+	 */
+	@Override
+	public String toString() {
+		StringBuilder stringB = new StringBuilder();
+		stringB.append("ユーザーID : ").append(this.UserId).append(" | ")
+		.append("出退勤紐づけレコードID : ").append(this.tWorkUnitHisId);
+		return stringB.toString();
+	}
+
 }

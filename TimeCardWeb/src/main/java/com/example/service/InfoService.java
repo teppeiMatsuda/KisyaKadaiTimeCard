@@ -51,7 +51,12 @@ public class InfoService {
 	 */
 	@Autowired
 	TWorkEndHisMapper tWorkEndHisMapper;
-
+	/**
+	 * 初期表示に必要な情報を取得するメソッドです。
+	 * @param principal 認証情報
+	 * @return 出勤・退勤フラグやユーザーID、出退勤紐づけテーブルのレコードIDを保持したマップ
+	 * @throws CustomServiceException
+	 */
 	public Map<String, Object> initialDisplay(Principal principal) throws CustomServiceException {
 		//返り値準備
 		HashMap<String, Object> userStateMap = new HashMap<>();
@@ -99,11 +104,17 @@ public class InfoService {
 		userStateMap.put("roleId", user.getRoleId());
 		return userStateMap;
 	}
-
+	/**
+	 * 
+	 * @param elementID クライアント側から渡ってきたhtml要素のID（出勤ボタンor退勤ボタン）
+	 * @param session Controller間で持ちまわるセッション情報
+	 * @return 登録直後の出退勤紐づけレコード、登録処理結果(boolean)を含むマップ
+	 * @throws CustomServiceException
+	 */
 	@Transactional
 	public Map<String, Object> pushAttButton(String elementID, SessionForm session) throws CustomServiceException {
 		Map<String, Object> attResultMap = new HashMap<>();
-		if(!"".equals(elementID)) {
+		if(elementID != null||!"".equals(elementID)) {
 			if(elementID.equals(Const.ATTENDANCE)) {
 				TWorkUnitHis workUnitRec = new TWorkUnitHis();
 				// ユーザーIDをセット
@@ -114,7 +125,7 @@ public class InfoService {
 				int resultTWorkRowNum = tWorkUnitMapper.insertSelective(workUnitRec);
 
 				if(resultTWorkRowNum == 0) {
-					throw new CustomServiceException("出勤記録の登録に失敗しました。");
+					throw new CustomServiceException("出勤記録(出退勤紐づけレコード)の登録に失敗しました。");
 				}
 				TWorkUnitHis latestRecord = tWorkUnitMapper.selectLatestRecord();
 				// 返却用マップに登録したレコードのIDを含める。
@@ -128,7 +139,7 @@ public class InfoService {
 				int resultNum = tWorkStartHisMapper.insert(tWorkStartRec);
 
 				if(resultNum == 0) {
-					throw new CustomServiceException("出勤記録の登録に失敗しました。");
+					throw new CustomServiceException("出勤記録(出勤履歴)の登録に失敗しました。");
 				}
 			}else if(elementID.equals(Const.LEAVE)) {
 				if(session.getTWorkUnitHisId() == null) {
@@ -153,10 +164,12 @@ public class InfoService {
 				if(leaveResult == 0) {
 					throw new CustomServiceException("退勤記録の登録に失敗しました。");
 				}
+			}else{
+				throw new CustomServiceException("クライアントから不正な値が送信されました。");
 			}
 			attResultMap.put("attResult", true);
 			return attResultMap;
 		}
-		throw new CustomServiceException("クライアントから不正な値が送信されました。");
+		throw new CustomServiceException("クライアントから無効な値が送信されました。");
 	}
 }

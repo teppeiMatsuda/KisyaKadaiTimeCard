@@ -34,8 +34,8 @@
 			<p id="attendtitle">出退勤登録</p>
 			<hr id="horizon"></hr>
 			<p>
-				<input type="button" class="attend btn btn-outline-primary rounded-pill" id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
-				<input type="button" class="attend btn btn-outline-danger rounded-pill" id="leave" value="退勤" th:disabled = "${wStartFlg == false || wEndFlg == true || roleId == '1'}"/>
+				<input type="button" class="btnList attend btn btn-outline-primary rounded-pill" id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
+				<input type="button" class="btnList attend btn btn-outline-danger rounded-pill" id="leave" value="退勤" th:disabled = "${wStartFlg == false || wEndFlg == true || roleId == '1'}"/>
 			</p>
 			<!-- <p>
 				<input type="button" id="request" value="申請(仮)" class="attend btn btn-success rounded-pill"/>
