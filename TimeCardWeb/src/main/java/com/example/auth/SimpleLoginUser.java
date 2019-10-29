@@ -11,6 +11,11 @@ import com.example.model.MUser;
 
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     // Userエンティティ
     private MUser user;
 

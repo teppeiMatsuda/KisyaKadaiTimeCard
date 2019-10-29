@@ -28,7 +28,7 @@
 <!-- 		<sec:access-denied-handler error-page="" /> -->
 
 		<sec:custom-filter ref="csrfTokenFilter" after="CSRF_FILTER"/>
-		<sec:form-login login-page="/index"
+		<sec:form-login login-page="/"
 			login-processing-url="/api/login"
 			username-parameter="loginId" password-parameter="password" />
 
@@ -36,6 +36,7 @@
 			authentication-failure-url="/fdfdfdfdfdfdfd" -->
 <!-- 	<sec:logout logout-url="/logout" logout-success-url="/logout_complete"
 			delete-cookies="JSESSIONID" /> -->
+
 
 	</sec:http>
 
@@ -61,6 +62,12 @@
 			</list>
 		</constructor-arg>
 	</bean> -->
+
+		<sec:authentication-manager alias="authenticationManager">
+		    <sec:authentication-provider user-service-ref="userAccountService">
+		        <sec:password-encoder ref="passwordEncoder" />
+		    </sec:authentication-provider>
+		</sec:authentication-manager>
 
 	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
     	<constructor-arg value="/api/login" />

@@ -32,7 +32,7 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          HttpServletResponse response,
                          AuthenticationException exception) throws IOException, ServletException {
         if (response.isCommitted()) {
-            log.info("Response has already been committed.");
+            //log.info("Response has already been committed.");
             return;
         }
         dump(exception);
@@ -41,19 +41,19 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     private void dump(AuthenticationException e) {
         if (e instanceof BadCredentialsException) {
-            log.debug("BadCredentialsException : {}", e.getMessage());
+            //log.debug("BadCredentialsException : {}", e.getMessage());
         } else if (e instanceof LockedException) {
-            log.debug("LockedException : {}", e.getMessage());
+            //log.debug("LockedException : {}", e.getMessage());
         } else if (e instanceof DisabledException) {
-            log.debug("DisabledException : {}", e.getMessage());
+            //log.debug("DisabledException : {}", e.getMessage());
         } else if (e instanceof AccountExpiredException) {
-            log.debug("AccountExpiredException : {}", e.getMessage());
+            //log.debug("AccountExpiredException : {}", e.getMessage());
         } else if (e instanceof CredentialsExpiredException) {
-            log.debug("CredentialsExpiredException : {}", e.getMessage());
+            //log.debug("CredentialsExpiredException : {}", e.getMessage());
         } else if (e instanceof SessionAuthenticationException) {
-            log.debug("SessionAuthenticationException : {}", e.getMessage());
+            //log.debug("SessionAuthenticationException : {}", e.getMessage());
         } else {
-            log.debug("AuthenticationException : {}", e.getMessage());
+            //log.debug("AuthenticationException : {}", e.getMessage());
         }
     }
 }

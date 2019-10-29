@@ -26,7 +26,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                                         HttpServletResponse response,
                                         Authentication auth) throws IOException, ServletException {
         if (response.isCommitted()) {
-            log.info("Response has already been committed.");
+            //log.info("Response has already been committed.");
             return;
         }
         response.setStatus(HttpStatus.OK.value());

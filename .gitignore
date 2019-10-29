@@ -31,3 +31,4 @@ build/
 .vscode/
 /bin/
 /TimeCardWeb/src/main/resources/public/*
+TimeCardWeb/src/main/resources/public/index.html

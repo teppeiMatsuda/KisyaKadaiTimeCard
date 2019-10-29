@@ -26,7 +26,7 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse response,
                        AccessDeniedException exception) throws IOException, ServletException {
         if (response.isCommitted()) {
-            log.info("Response has already been committed.");
+            System.out.println("log.info(Response has already been committed.);");
             return;
         }
         dump(exception);
@@ -35,13 +35,13 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
 
     private void dump(AccessDeniedException e) {
         if (e instanceof AuthorizationServiceException) {
-            log.debug("AuthorizationServiceException : {}", e.getMessage());
+            //log.debug("AuthorizationServiceException : {}", e.getMessage());
         } else if (e instanceof CsrfException) {
-            log.debug("org.springframework.security.web.csrf.CsrfException : {}", e.getMessage());
+            //log.debug("org.springframework.security.web.csrf.CsrfException : {}", e.getMessage());
         } else if (e instanceof org.springframework.security.web.server.csrf.CsrfException) {
-            log.debug("org.springframework.security.web.server.csrf.CsrfException : {}", e.getMessage());
+            //log.debug("org.springframework.security.web.server.csrf.CsrfException : {}", e.getMessage());
         } else {
-            log.debug("AccessDeniedException : {}", e.getMessage());
+            //log.debug("AccessDeniedException : {}", e.getMessage());
         }
     }
 

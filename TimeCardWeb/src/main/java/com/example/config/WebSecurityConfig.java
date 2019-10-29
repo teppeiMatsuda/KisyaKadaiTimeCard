@@ -1,18 +1,13 @@
 package com.example.config;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -41,14 +36,12 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 
 	private /*final*/ AuthenticationManagerBuilder authenticationManagerBuilder;
 
+	@Autowired
+	@Qualifier("userAccountService")
 	private /*final*/ UserDetailsService userDetailsService;
 
-	public void WebSecurityConfiguration(
-		    AuthenticationManagerBuilder _authenticationManagerBuilder,
-		    UserDetailsService _userDetailsService
-		  ) {
+	public void WebSecurityConfiguration(AuthenticationManagerBuilder _authenticationManagerBuilder) {
 		    this.authenticationManagerBuilder = _authenticationManagerBuilder;
-		    this.userDetailsService = _userDetailsService;
 		  }
 
 
@@ -60,22 +53,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
         return tokenRepository;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-    }
-
-    @PostConstruct
-    public void init() {
-      try {
-        // Point.3
-        authenticationManagerBuilder
-          .userDetailsService(userDetailsService)
-          .passwordEncoder(passwordEncoder());
-      } catch (Exception e) {
-        throw new BeanInitializationException("Security configuration failed", e);
-      }
-    }
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
 	@Override
@@ -102,7 +81,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
             .accessDeniedHandler(accessDeniedHandler())
         .and()
         // LOGIN
-        .formLogin()
+        .formLogin().loginPage("/")
             .loginProcessingUrl("/api/login").permitAll()
                 .usernameParameter("loginId")
                 .passwordParameter("password")
@@ -120,7 +99,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
          // CSRF
         .csrf()
             //.disable()
-            //.ignoringAntMatchers("/login")
+            .ignoringAntMatchers("/api/login")
             .csrfTokenRepository(new CookieCsrfTokenRepository());
 	}
 

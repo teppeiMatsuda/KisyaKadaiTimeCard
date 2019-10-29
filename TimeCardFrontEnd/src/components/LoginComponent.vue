@@ -37,7 +37,7 @@ Vue.use(ElementUI, { locale });
 // CSRFトークン取得
 const CSRF_TOKEN = document.cookie.match(new RegExp(`XSRF-TOKEN=([^;]+)`))[1];
 const instance = axios.create({
-  headers: { "X-XSRF-TOKEN": CSRF_TOKEN }
+  headers: { "X-CSRF-TOKEN": CSRF_TOKEN }
 });
 export const AXIOS = instance;
 
