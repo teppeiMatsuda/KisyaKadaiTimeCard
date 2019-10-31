@@ -31,7 +31,7 @@
 			login-processing-url="/authenticate"
 			username-parameter="loginId" password-parameter="password" />
 
-		<sec:logout logout-url="/logout" logout-success-url="/logout_complete"
+		<sec:logout logout-url="/logout" logout-success-url="/login"
 			delete-cookies="JSESSIONID" />
 
 	</sec:http>

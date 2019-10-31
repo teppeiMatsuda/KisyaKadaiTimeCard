@@ -2,6 +2,8 @@ package com.example.form;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,15 +30,25 @@ public class SessionForm implements Serializable {
 	Integer tWorkUnitHisId;
 
 	/**
+	 * セッションフォームBeanが保持する情報をすべて削除するメソッドです。
+	 */
+	public void clear() {
+		this.UserId = null;
+		this.tWorkUnitHisId = null;
+	}	
+
+	/**
 	 * セッションフォーム内容確認用メソッド
 	 * @return セッションフォーム保持データ内容文字列
 	 */
 	@Override
 	public String toString() {
-		StringBuilder stringB = new StringBuilder();
-		stringB.append("ユーザーID : ").append(this.UserId).append(" | ")
-		.append("出退勤紐づけレコードID : ").append(this.tWorkUnitHisId);
-		return stringB.toString();
+		return ToStringBuilder.reflectionToString(this);
+		// ↓ ダサいのでコメントアウトします…。
+		// StringBuilder stringB = new StringBuilder();
+		// stringB.append("ユーザーID : ").append(this.UserId).append(" | ")
+		// .append("出退勤紐づけレコードID : ").append(this.tWorkUnitHisId);
+		// return stringB.toString();
 	}
 
 }

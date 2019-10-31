@@ -106,7 +106,6 @@ public class InfoController {
 			resultMap.put("registResult", false);
 			return resultMap;
 		}
-    }
-
+	}
 
 }

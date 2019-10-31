@@ -1,20 +1,40 @@
 $(function(){
-
+	// javaのControllerで定義されている自身のパス。
+	const htmlpath = "/info";
+	// 出退勤ボタン表示Div
+	const ButtonDiv = document.querySelector("#ButtonDiv");
 	// 出勤ボタン
 	const attendanceB = document.querySelector("#attendance");
 	// 退勤ボタン
 	const leaveB = document.querySelector("#leave");
 	// 出勤ボタン・退勤ボタンを含むNodeリスト
 	const attButtonList = document.querySelectorAll(".btnList");
+	// 画面上部のログアウトボタン
+	const logoutB = document.querySelector("#logout-btn");
+	// メインフォーム
+	//const mainForm = document.querySelector("#mainForm");
 
-	// 出勤ボタンのクリックイベントにメソッドを紐づけ。
-	attendanceB.addEventListener("click", function(){
-		postAttendance(this);
+	if(ButtonDiv != null){
+		// 出勤ボタンのクリックイベントにメソッドを紐づけ。
+		attendanceB.addEventListener("click", function(){
+			postAttendance(this);
 	});
-	// 退勤ボタンのクリックイベントにメソッドを紐づけ。
-	leaveB.addEventListener("click", function(){
-		postAttendance(this);
-	});
+		// 退勤ボタンのクリックイベントにメソッドを紐づけ。
+		leaveB.addEventListener("click", function(){
+			postAttendance(this);
+		});
+	}
+
+	// ログアウトボタンのクリックイベントにメソッドを紐づけ。
+	logoutB.addEventListener("click", function(){
+		postLogout();
+	})
+
+	// ログアウトメソッド
+	function postLogout(){
+		mainForm.action= "/logout";
+		mainForm.submit();
+	}
 
 	// このままではIEで取り扱えない(forEachが使えない)ため配列に変換する。
 	const attButtonListArray = Array.prototype.slice.call(attButtonList,0); 
