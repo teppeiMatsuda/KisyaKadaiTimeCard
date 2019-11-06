@@ -34,7 +34,7 @@ body{
 #home{
 	display: inline-block;
 	margin-left: 31px;
-	color:rgb(219, 197, 126);
+	color:rgb(221, 200, 129);
 	display: inline-block;
 	vertical-align:baseline;
 	font-size: 40px;
@@ -148,5 +148,48 @@ body{
 
 #horizon{
 	background-color:rgb(187, 187, 187);
+}
+body{
+	position: relative;
+}
+
+#timecard{
+	display: inline-block;
+	z-index: 100;
+	position: absolute;
+	width: 20vw;
+	height: calc(20vw * 2.2);
+	background-color: rgb(247, 236, 226);
+	border-radius: 12px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	margin-top: 1.5vh;
+}
+
+#tc_header{
+	text-align: right;
+	position: relative;
+	height: 1.3vw;
+	background-color: rgb(93, 108, 141);
+	border-radius: 12px 12px 0 0;
+	border: none;
+}
+
+#tc_header_title{
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+	margin-right: 2vw;
+	z-index: 101;
+	position: relative;
+	width: 6vw;
+	height: 1.4vw;
+	background-color:rgb(247, 236, 226);
+	color: rgb(93, 108, 141);
+	border-radius: 0.4em;
+	font-size: 0.9em;
+	letter-spacing: 0.3em;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

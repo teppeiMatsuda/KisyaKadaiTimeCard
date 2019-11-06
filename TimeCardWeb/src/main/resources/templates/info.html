@@ -28,19 +28,27 @@
 			<input type="submit" class="logout btn btn-outline-secondary" id="logout-btn" value="Logout"/>
 		</div>
 	</header>
-		<div id=""></div>
-		<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
-		<div id="main">Mon　　　|　　　Tue　　　|　　　Wed　　　|　　　Thu　　 |　　　Fri　　　|　　　Sat</div>
-		<div id="ButtonDiv" th:if="${roleId != '1'}")>
-			<p id="attendtitle">出退勤登録</p>
-			<hr id="horizon"></hr>
-			<p>
-				<input type="button" class="btnList attend btn btn-outline-primary rounded-pill" id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
-				<input type="button" class="btnList attend btn btn-outline-danger rounded-pill" id="leave" value="退勤" th:disabled = "${wStartFlg == false || wEndFlg == true || roleId == '1'}"/>
-			</p>
-			<!-- <p>
-				<input type="button" id="request" value="申請(仮)" class="attend btn btn-success rounded-pill"/>
-			</p> -->
+	<div id="timecard">
+		<div id="tc_header">
+			<p id="tc_header_title">前半</p>
+			<table>
+				
+			</table>
 		</div>
+
+	</div>
+	<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
+	<div id="main">Mon　　　|　　　Tue　　　|　　　Wed　　　|　　　Thu　　 |　　　Fri　　　|　　　Sat</div>
+	<div id="ButtonDiv" th:if="${roleId != '1'}")>
+		<p id="attendtitle">出退勤登録</p>
+		<hr id="horizon"></hr>
+		<p>
+			<input type="button" class="btnList attend btn btn-outline-primary rounded-pill" id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
+			<input type="button" class="btnList attend btn btn-outline-danger rounded-pill" id="leave" value="退勤" th:disabled = "${wStartFlg == false || wEndFlg == true || roleId == '1'}"/>
+		</p>
+		<!-- <p>
+			<input type="button" id="request" value="申請(仮)" class="attend btn btn-success rounded-pill"/>
+		</p> -->
+	</div>
 </body>
 </html>
