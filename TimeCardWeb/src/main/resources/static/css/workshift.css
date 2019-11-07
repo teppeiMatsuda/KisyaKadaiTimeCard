@@ -1,0 +1,18 @@
+#workshift{
+	width			: 80%;
+	margin			: auto;
+	border-collapse	: separate;
+	border-spacing	: 0px 20px;
+}
+
+.day{
+	width				: 14%;
+	background-color	:#FFFFFF;
+	border-bottom		: solid 2px #000000;
+
+}
+
+.holyday{
+	color: red;
+}
+

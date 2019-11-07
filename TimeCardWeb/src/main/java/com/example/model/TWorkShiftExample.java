@@ -320,52 +320,62 @@ public class TWorkShiftExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeEqualTo(Date value) {
+		public Criteria andStartOfWorkTimeEqualTo(String value) {
 			addCriterion("start_of_work_time =", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeNotEqualTo(Date value) {
+		public Criteria andStartOfWorkTimeNotEqualTo(String value) {
 			addCriterion("start_of_work_time <>", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeGreaterThan(Date value) {
+		public Criteria andStartOfWorkTimeGreaterThan(String value) {
 			addCriterion("start_of_work_time >", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeGreaterThanOrEqualTo(Date value) {
+		public Criteria andStartOfWorkTimeGreaterThanOrEqualTo(String value) {
 			addCriterion("start_of_work_time >=", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeLessThan(Date value) {
+		public Criteria andStartOfWorkTimeLessThan(String value) {
 			addCriterion("start_of_work_time <", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeLessThanOrEqualTo(Date value) {
+		public Criteria andStartOfWorkTimeLessThanOrEqualTo(String value) {
 			addCriterion("start_of_work_time <=", value, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeIn(List<Date> values) {
+		public Criteria andStartOfWorkTimeLike(String value) {
+			addCriterion("start_of_work_time like", value, "startOfWorkTime");
+			return (Criteria) this;
+		}
+
+		public Criteria andStartOfWorkTimeNotLike(String value) {
+			addCriterion("start_of_work_time not like", value, "startOfWorkTime");
+			return (Criteria) this;
+		}
+
+		public Criteria andStartOfWorkTimeIn(List<String> values) {
 			addCriterion("start_of_work_time in", values, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeNotIn(List<Date> values) {
+		public Criteria andStartOfWorkTimeNotIn(List<String> values) {
 			addCriterion("start_of_work_time not in", values, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeBetween(Date value1, Date value2) {
+		public Criteria andStartOfWorkTimeBetween(String value1, String value2) {
 			addCriterion("start_of_work_time between", value1, value2, "startOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andStartOfWorkTimeNotBetween(Date value1, Date value2) {
+		public Criteria andStartOfWorkTimeNotBetween(String value1, String value2) {
 			addCriterion("start_of_work_time not between", value1, value2, "startOfWorkTime");
 			return (Criteria) this;
 		}
@@ -380,52 +390,62 @@ public class TWorkShiftExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeEqualTo(Date value) {
+		public Criteria andEndOfWorkTimeEqualTo(String value) {
 			addCriterion("end_of_work_time =", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeNotEqualTo(Date value) {
+		public Criteria andEndOfWorkTimeNotEqualTo(String value) {
 			addCriterion("end_of_work_time <>", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeGreaterThan(Date value) {
+		public Criteria andEndOfWorkTimeGreaterThan(String value) {
 			addCriterion("end_of_work_time >", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeGreaterThanOrEqualTo(Date value) {
+		public Criteria andEndOfWorkTimeGreaterThanOrEqualTo(String value) {
 			addCriterion("end_of_work_time >=", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeLessThan(Date value) {
+		public Criteria andEndOfWorkTimeLessThan(String value) {
 			addCriterion("end_of_work_time <", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeLessThanOrEqualTo(Date value) {
+		public Criteria andEndOfWorkTimeLessThanOrEqualTo(String value) {
 			addCriterion("end_of_work_time <=", value, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeIn(List<Date> values) {
+		public Criteria andEndOfWorkTimeLike(String value) {
+			addCriterion("end_of_work_time like", value, "endOfWorkTime");
+			return (Criteria) this;
+		}
+
+		public Criteria andEndOfWorkTimeNotLike(String value) {
+			addCriterion("end_of_work_time not like", value, "endOfWorkTime");
+			return (Criteria) this;
+		}
+
+		public Criteria andEndOfWorkTimeIn(List<String> values) {
 			addCriterion("end_of_work_time in", values, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeNotIn(List<Date> values) {
+		public Criteria andEndOfWorkTimeNotIn(List<String> values) {
 			addCriterion("end_of_work_time not in", values, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeBetween(Date value1, Date value2) {
+		public Criteria andEndOfWorkTimeBetween(String value1, String value2) {
 			addCriterion("end_of_work_time between", value1, value2, "endOfWorkTime");
 			return (Criteria) this;
 		}
 
-		public Criteria andEndOfWorkTimeNotBetween(Date value1, Date value2) {
+		public Criteria andEndOfWorkTimeNotBetween(String value1, String value2) {
 			addCriterion("end_of_work_time not between", value1, value2, "endOfWorkTime");
 			return (Criteria) this;
 		}
