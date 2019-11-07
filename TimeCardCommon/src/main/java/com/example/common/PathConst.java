@@ -12,4 +12,6 @@ public class PathConst {
 	 */
 	public static final String INFO_PAGE = "/info";
 
+	public static final String WORK_SHIFT_PATH = "/workshift";
+
 }
