@@ -299,4 +299,31 @@
   	WHERE
   		login_id = #{loginId,jdbcType=VARCHAR}
   </select>
+
+  <!-- 20191109 五十嵐 start -->
+  <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+        user_id,
+        login_id,
+        password,
+        user_name,
+        delete_flag,
+        role_id
+    FROM
+        m_user
+    WHERE
+        user_id = #{userId, jdbcType=INTEGER}#
+  </select>
+  <update id="updateByUserId" parameterType="com.example.model.MUser">
+    UPDATE m_user
+    SET (
+        login_id = #{record.loginId, jdbcType=VARCHAR}#,
+        user_name = #{record.userName, jdbcType=VARCHAR}#,
+        delete_flag = #{record.deleteFlag, jdbcType=CHAR}#,
+        role_id = #{record.roleId, jdbcType=CHAR}#
+    )
+    WHERE
+        user_id = #{record.userId, jdbcType=INTEGER}#
+  </update>
+  <!-- 20191109 五十嵐 end -->
 </mapper>
