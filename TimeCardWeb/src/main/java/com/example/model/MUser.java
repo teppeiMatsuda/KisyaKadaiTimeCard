@@ -117,5 +117,5 @@ public class MUser extends MUserKey {
 	public void setRoleId(String roleId) {
 		this.roleId = roleId == null ? null : roleId.trim();
 	}
-	
+
 }
