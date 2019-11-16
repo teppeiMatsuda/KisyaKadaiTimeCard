@@ -299,4 +299,11 @@
   	WHERE
   		login_id = #{loginId,jdbcType=VARCHAR}
   </select>
+  <!--
+  	全件取得
+  	20191116_中原追加
+  -->
+  <select id="findAll" resultType="com.example.model.MUser">
+  	select * from m_user
+  </select>
 </mapper>
