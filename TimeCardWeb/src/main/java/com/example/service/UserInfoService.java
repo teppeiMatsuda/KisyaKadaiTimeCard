@@ -1,9 +1,9 @@
 package com.example.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +29,9 @@ public class UserInfoService {
     @Autowired
     MTeamMapper mTeamMapper;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
     public MUser getUser(int userId) {
         return mUserMapper.selectByUserId(userId);
     }
@@ -52,21 +55,36 @@ public class UserInfoService {
         MUserExample example = new MUserExample ();
 //    	mUser.setUserId((int)mUserMapper.countByExample(example) + 1);
         mUser.setLoginId(userInfoForm.getLoginId());
-        mUser.setPassword(userInfoForm.getPassword());
+        mUser.setPassword(passwordEncoder.encode(userInfoForm.getPassword()));
         mUser.setUserName(userInfoForm.getUserName());
         mUser.setRoleId("2");
+        mUser.setDeleteFlag("0");
 
         TUserDetail tUserDetail = new TUserDetail();
-        tUserDetail.setUserId((int)mUserMapper.countByExample(example) + 1);
-        tUserDetail.setStartOfWorkTime(Date.valueOf(userInfoForm.getStartOfWorkTime()));
-        tUserDetail.setEndOfWorkTime(Date.valueOf(userInfoForm.getEndOfWorkTime()));
+        tUserDetail.setUserId((int)mUserMapper.countByExample(example)+1);
+
+        tUserDetail.setStartOfWorkTime(this.timeFormat(userInfoForm.getStartOfWorkTime()));
+        tUserDetail.setEndOfWorkTime(this.timeFormat(userInfoForm.getEndOfWorkTime()));
+
         tUserDetail.setTeamId(1);
+        tUserDetail.setDeleteFlag("0");
+
         int mUserResultNum = mUserMapper.insert(mUser);
         int tUserDetailResultNum = tUserDetailMapper.insert(tUserDetail);
 
-        if(mUserResultNum == 0 || tUserDetailResultNum == 0) {
+        if(mUserResultNum == 0 && tUserDetailResultNum == 0) {
             throw new CustomServiceException("ユーザー情報の登録に失敗しました。");
         }
+    }
+
+    public String timeFormat(String time) {
+//    	String [] str = time.split(":");
+    	if(time.contains(":")) {
+    		time += ":00";
+    	}else {
+    		time += ":00:00";
+    	}
+    	return time;
     }
 
     @Transactional

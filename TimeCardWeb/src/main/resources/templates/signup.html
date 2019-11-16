@@ -8,6 +8,9 @@
 <link rel="stylesheet" th:href="@{/static/css/signup.css}" />
 </head>
 <body>
+
+<h1 th:text="${name}">
+</h1>
 	<h1>新規登録</h1>
 	<form th:action="@{/signup/confirm}" method="POST"  th:object="${userInfoForm}">
 
@@ -26,11 +29,11 @@
 			</tr>
 			<tr>
 				<td>始業時間：</td>
-				<td><input type="text" id="startOfWorkTime" th:field="*{startOfWorkTime}"/></td>
+				<td><input type="time" id="startOfWorkTime" step="1" th:field="*{startOfWorkTime}"/></td>
 			</tr>
 			<tr>
 				<td>就業時間：</td>
-				<td><input type="text" id="startOfWorkTime" th:field="*{endOfWorkTime}"/></td>
+				<td><input type="time" id="startOfWorkTime" step="1" th:field="*{endOfWorkTime}"/></td>
 			</tr>
 			<tr>
 				<td></td>

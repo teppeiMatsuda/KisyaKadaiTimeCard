@@ -5,7 +5,6 @@ import static com.example.common.PathConst.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,20 +36,20 @@ public class SignUpController {
         List<MTeam> teamList = userInfoService.getTeamList();
         model.addAttribute("teamList", teamList);
         model.addAttribute("userInfoForm", new UserInfoForm());
+//        MUser mUser =  userInfoService.getUser(3);
+        model.addAttribute("userInfoForm", new UserInfoForm());
+//        model.addAttribute("name", mUser.getUserName());
         return HTML_PATH;
     }
 
-//   20191109 五十嵐
-//    以下、遷移に失敗するためコメントアウト。
-//    原因がわかったら修正する。
 //    /**
 //     *
-//     * 確認画面へ遷移。
+//     * ユーザーの新規登録。
 //     * @param model
 //     * @param form
 //     * @return
 //     */
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public String confirm(Model model, UserInfoForm form) {
 
         // formをmodelに詰める
@@ -73,11 +72,6 @@ public class SignUpController {
         // 重複確認結果をmodelに詰める
         model.addAttribute("isDuplicate", false);
 
-        // formをbeanに詰め替え
-
-//        BeanUtils.copyProperties(form, mUser);
-//        BeanUtils.copyProperties(form, tUserDetail);
-
         // DBに登録
         try {
             userInfoService.registUser(form);
@@ -86,43 +80,12 @@ public class SignUpController {
             // 登録結果=error
             model.addAttribute("result", "error");
             // 完了画面へ遷移
-            return HTML_PATH + "/regist";
+            return HTML_PATH;
         }
 
         // 登録結果=success
         model.addAttribute("result", "success");
         // 完了画面へ遷移
-        return HTML_PATH + "/regist";
+        return "/login";
     }
-//
-//    /**
-//     * ユーザー新規登録を実行後、完了画面へ遷移。
-//     * @param form
-//     * @return
-//     */
-//    @RequestMapping(value = "/regist", method = RequestMethod.POST)
-//    public String regist(Model model, @RequestBody UserInfoForm form) {
-//
-//        // formをbeanに詰め替え
-//        MUser mUser = new MUser();
-//        TUserDetail tUserDetail = new TUserDetail();
-//        BeanUtils.copyProperties(form, mUser);
-//        BeanUtils.copyProperties(form, tUserDetail);
-//
-//        // DBに登録
-//        try {
-//            userInfoService.registUser(mUser, tUserDetail);
-//        } catch (CustomServiceException e) {
-//            e.printStackTrace();
-//            // 登録結果=error
-//            model.addAttribute("result", "error");
-//            // 完了画面へ遷移
-//            return HTML_PATH + "/regist";
-//        }
-//
-//        // 登録結果=success
-//        model.addAttribute("result", "success");
-//        // 完了画面へ遷移
-//        return HTML_PATH + "/regist";
-//    }
 }
