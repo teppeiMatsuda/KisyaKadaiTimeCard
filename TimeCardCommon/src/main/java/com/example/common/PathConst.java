@@ -19,5 +19,6 @@ public class PathConst {
 	public static final String SIGNUP_PAGE = "/signup";
 
 
+	public static final String WORK_SHIFT_PATH = "/workshift";
 
 }

@@ -69,10 +69,10 @@ public interface MUserMapper {
 	 */
 	int updateByPrimaryKey(MUser record);
 
-    /**
+	/**
      * ログインIDでユーザーマスターを検索
      * @param loginId
-     * @return ユーザー情報
+     * @return ユーザー�?報
      */
     MUser selectByLoginId(@Param("loginId") String loginId);
 

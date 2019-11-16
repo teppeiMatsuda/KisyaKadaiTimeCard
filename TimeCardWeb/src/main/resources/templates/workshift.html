@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>
+	<script src="/js/workshift.js"  th:src="@{/js/workshift.js}" defer></script>
+</head>
+<body>
+	<div id="containar" th:fragment="shiftcalendar(id)"></div>
+	<div>
+		<input type="hidden" value="${id}" name="param">
+	</div>
+</body>
+</html>

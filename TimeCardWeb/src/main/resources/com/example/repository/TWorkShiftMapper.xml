@@ -8,8 +8,8 @@
     -->
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="work_date" jdbcType="DATE" property="workDate" />
-    <result column="start_of_work_time" jdbcType="TIMESTAMP" property="startOfWorkTime" />
-    <result column="end_of_work_time" jdbcType="TIMESTAMP" property="endOfWorkTime" />
+    <result column="start_of_work_time" jdbcType="VARCHAR" property="startOfWorkTime" />
+    <result column="end_of_work_time" jdbcType="VARCHAR" property="endOfWorkTime" />
     <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -121,8 +121,8 @@
     -->
     insert into t_work_shift (user_id, work_date, start_of_work_time, 
       end_of_work_time, delete_flag)
-    values (#{userId,jdbcType=INTEGER}, #{workDate,jdbcType=DATE}, #{startOfWorkTime,jdbcType=TIMESTAMP}, 
-      #{endOfWorkTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=CHAR})
+    values (#{userId,jdbcType=INTEGER}, #{workDate,jdbcType=DATE}, #{startOfWorkTime,jdbcType=VARCHAR}, 
+      #{endOfWorkTime,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.TWorkShift">
     <!--
@@ -155,10 +155,10 @@
         #{workDate,jdbcType=DATE},
       </if>
       <if test="startOfWorkTime != null">
-        #{startOfWorkTime,jdbcType=TIMESTAMP},
+        #{startOfWorkTime,jdbcType=VARCHAR},
       </if>
       <if test="endOfWorkTime != null">
-        #{endOfWorkTime,jdbcType=TIMESTAMP},
+        #{endOfWorkTime,jdbcType=VARCHAR},
       </if>
       <if test="deleteFlag != null">
         #{deleteFlag,jdbcType=CHAR},
@@ -189,10 +189,10 @@
         work_date = #{record.workDate,jdbcType=DATE},
       </if>
       <if test="record.startOfWorkTime != null">
-        start_of_work_time = #{record.startOfWorkTime,jdbcType=TIMESTAMP},
+        start_of_work_time = #{record.startOfWorkTime,jdbcType=VARCHAR},
       </if>
       <if test="record.endOfWorkTime != null">
-        end_of_work_time = #{record.endOfWorkTime,jdbcType=TIMESTAMP},
+        end_of_work_time = #{record.endOfWorkTime,jdbcType=VARCHAR},
       </if>
       <if test="record.deleteFlag != null">
         delete_flag = #{record.deleteFlag,jdbcType=CHAR},
@@ -210,8 +210,8 @@
     update t_work_shift
     set user_id = #{record.userId,jdbcType=INTEGER},
       work_date = #{record.workDate,jdbcType=DATE},
-      start_of_work_time = #{record.startOfWorkTime,jdbcType=TIMESTAMP},
-      end_of_work_time = #{record.endOfWorkTime,jdbcType=TIMESTAMP},
+      start_of_work_time = #{record.startOfWorkTime,jdbcType=VARCHAR},
+      end_of_work_time = #{record.endOfWorkTime,jdbcType=VARCHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

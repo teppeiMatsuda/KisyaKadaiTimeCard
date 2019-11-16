@@ -9,25 +9,33 @@
 </head>
 <body>
 	<h1>新規登録</h1>
-	<form th:action="@{/register}" method="POST" th:form=@>
+	<form th:action="@{/signup/confirm}" method="POST"  th:object="${userInfoForm}">
 
 		<table align="center">
 			<tr>
 				<td>ログインID：</td>
-				<td><input type="text" id="loginId" name="loginId" /></td>
+				<td><input type="text" id="loginId" th:field="*{loginId}" /></td>
+			</tr>
+			<tr>
+				<td>ユーザー名：</td>
+				<td><input type="text" id="userName" th:field="*{userName}"/></td>
 			</tr>
 			<tr>
 				<td>パスワード：</td>
-				<td><input type="password" id="password" name="password" /></td>
+				<td><input type="text" id="password" th:field="*{password}"/></td>
 			</tr>
-						<tr>
-				<td>パスワード（確認用）：</td>
-				<td><input type="password" id="password" name="password" /></td>
+			<tr>
+				<td>始業時間：</td>
+				<td><input type="text" id="startOfWorkTime" th:field="*{startOfWorkTime}"/></td>
+			</tr>
+			<tr>
+				<td>就業時間：</td>
+				<td><input type="text" id="startOfWorkTime" th:field="*{endOfWorkTime}"/></td>
 			</tr>
 			<tr>
 				<td></td>
 				<td align="right">
-					<button type="submit">ログイン</button>
+					<button type="submit">登録</button>
 				</td>
 			</tr>
 			<tr>
