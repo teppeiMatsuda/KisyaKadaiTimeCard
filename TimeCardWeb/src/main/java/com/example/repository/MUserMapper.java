@@ -72,7 +72,7 @@ public interface MUserMapper {
 	/**
      * ログインIDでユーザーマスターを検索
      * @param loginId
-     * @return ユーザー�?報
+     * @return ユーザー�?報
      */
     MUser selectByLoginId(@Param("loginId") String loginId);
 
@@ -94,5 +94,12 @@ public interface MUserMapper {
      */
     int updateByUserId(MUser record);
     // 20191109 五十嵐 end
+
+    // 20191117 横澤 start
+    /**
+     * ユーザー情報を削除（deleteflg更新のみのため実質更新）
+     */
+	int deleteUser(MUser mUser);
+    // 20191117 横澤 end
 
 }

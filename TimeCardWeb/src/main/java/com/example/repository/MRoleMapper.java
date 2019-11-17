@@ -1,10 +1,12 @@
 package com.example.repository;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.example.model.MRole;
 import com.example.model.MRoleExample;
 import com.example.model.MRoleKey;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface MRoleMapper {
 
@@ -73,4 +75,10 @@ public interface MRoleMapper {
 	 * @mbg.generated
 	 */
 	int updateByPrimaryKey(MRole record);
+
+	/**
+	 * 全ての有効なチーム情報を取得します。
+	 * @return 有効なロール情報リスト
+	 */
+	List<MRole> selectAll();
 }

@@ -61,6 +61,13 @@ public interface TUserDetailMapper {
 	/**
 	 * ユーザー詳細情報を更新
 	 */
-	int updateByUserId(TUserDetail record);
+	int updateByPrimaryKey(TUserDetail record);
 	// 20191109 五十嵐 end
+
+    // 20191117 横澤 start
+	/**
+	 * ユーザー詳細情報を削除（deleteflg更新のみのため実質更新）
+	 */
+	int deleteUser(TUserDetail record);
+    // 20191117 横澤 end
 }
