@@ -83,7 +83,7 @@ public interface MUserMapper {
     MUser selectByLoginId(@Param("loginId") String loginId);
 
     /**
-     * 全件取得
+     * 存在するユーザー全件取得
      */
     List<MUser> findAll();
 

@@ -12,4 +12,8 @@ public class PathConst {
 	 */
 	public static final String INFO_PAGE = "/info";
 
+	/**
+	 *
+	 */
+	public static final String USER_LIST_PAGE = "/userInfList";
 }
