@@ -12,8 +12,17 @@
 </head>
 <body>
 
-<h1 th:text="${name}">
-</h1>
+<form  id="userInfoForm" th:action="@{/signup/usersearch}" th:object="${userInfoForm}" method="post">
+  <p>検索したいキーワードを入力してください。</p>
+  <input type="search" name="userName" th:value="*{userName}" placeholder="キーワードを入力">
+  <input type="submit" name="submit" value="検索">
+</form>
+<table>
+<tr th:each="mUser : ${mUserList}" >
+	<td th:text="${mUser.userName}"></td>
+	<td th:text="${mUser.loginId}"></td>
+</tr>
+</table>
 	<h1>新規登録</h1>
 		<table align="center">
 			<tr>

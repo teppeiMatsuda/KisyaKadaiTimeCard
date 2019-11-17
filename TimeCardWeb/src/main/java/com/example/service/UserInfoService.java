@@ -187,4 +187,19 @@ public class UserInfoService {
         }
     }
 
+
+    /**
+    *
+    * @param userName
+    * @return List<MUser>
+    */
+   public List<MUser> searchUser(String userName) {
+	   
+       MUserExample mUserExample = new MUserExample();
+       mUserExample.createCriteria().andUserNameEqualTo(userName);
+       List<MUser>mUserList = mUserMapper.selectByExample(mUserExample);
+
+   return mUserList;
+   }
+
 }

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import static com.example.common.PathConst.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class SignUpController {
         List<MRole> roleList = userInfoService.getRoleList();
         model.addAttribute("roleList", roleList);
         model.addAttribute("userInfoForm", new UserInfoForm());
-
+        model.addAttribute("mUserList", new ArrayList<MUser>());
         return HTML_PATH;
     }
 
@@ -172,4 +173,29 @@ public class SignUpController {
         // 完了画面へ遷移
         return "/login";
     }
+
+    /**
+    *
+    * ユーザーの検索。
+    * @param model
+    * @param form
+    * @return
+    */
+    @RequestMapping(value = "/usersearch", method = RequestMethod.POST)
+    public String userSearch(Model model, UserInfoForm form) {
+
+    	List<MTeam> teamList = userInfoService.getTeamList();
+        model.addAttribute("teamList", teamList);
+        List<MRole> roleList = userInfoService.getRoleList();
+        model.addAttribute("roleList", roleList);
+        model.addAttribute("userInfoForm", new UserInfoForm());
+
+        String userName = form.getUserName();
+
+        List<MUser>mUserList= userInfoService.searchUser(userName);
+
+        model.addAttribute("mUserList",mUserList);
+        return HTML_PATH;
+    }
+
 }

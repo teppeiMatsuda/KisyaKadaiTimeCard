@@ -100,6 +100,15 @@ public interface MUserMapper {
      * ユーザー情報を削除（deleteflg更新のみのため実質更新）
      */
 	int deleteUser(MUser mUser);
+
+    /**
+     * ユーザー名でユーザーマスターを検索
+     * @param userName
+     * @return ユーザー情報
+     */
+    MUser selectByUserName(@Param("userName") String userName);
+
+
     // 20191117 横澤 end
 
 }

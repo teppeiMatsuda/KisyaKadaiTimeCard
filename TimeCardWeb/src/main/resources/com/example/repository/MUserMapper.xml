@@ -334,5 +334,20 @@
     WHERE
         user_id = #{userId, jdbcType=INTEGER}#
   </update>
+
+      <select id="selectByUserName" parameterType="String" resultMap="BaseResultMap">
+      SELECT
+          user_id,
+          login_id,
+          password,
+          user_name,
+          delete_flag,
+          role_id
+      FROM
+          m_user
+      WHERE
+          user_name = #{userName}
+  </select>
+
     <!-- 20191117 横澤 end -->
 </mapper>
