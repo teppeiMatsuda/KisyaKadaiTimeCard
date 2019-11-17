@@ -350,4 +350,17 @@
   </select>
 
     <!-- 20191117 横澤 end -->
+  <!--
+  	全件取得
+  	20191116_中原追加
+  -->
+  <select id="findAll" resultMap="BaseResultMap">
+  	select
+		*
+  	from
+  		m_user
+	WHERE
+		delete_flag = "0"
+  </select>
+
 </mapper>

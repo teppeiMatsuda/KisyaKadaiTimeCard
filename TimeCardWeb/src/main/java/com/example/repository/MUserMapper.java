@@ -110,5 +110,9 @@ public interface MUserMapper {
 
 
     // 20191117 横澤 end
+    /**
+     * 存在するユーザー全件取得
+     */
+    List<MUser> findAll();
 
 }

@@ -21,4 +21,8 @@ public class PathConst {
 
 	public static final String WORK_SHIFT_PATH = "/workshift";
 
+	/**
+	 *
+	 */
+	public static final String USER_LIST_PAGE = "/userInfList";
 }
