@@ -29,7 +29,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/signup/confirm}" method="POST"  th:object="${userInfoForm}">
+                        <form th:action="@{/userInfList/confirm}" method="POST"  th:object="${userInfoForm}">
 
                             <table align="center">
                                 <tr>
@@ -87,8 +87,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/signup/edit}" method="POST"  th:object="${userInfoForm}">
-
+                        <form th:action="@{/userInfList/edit}" method="POST"  th:object="${userInfoForm}">
+                            <input type="hidden" id="edit" th:field="*{userId}"/>
                             <table align="center">
                                 <tr>
                                     <td>ログインID：</td>
@@ -153,8 +153,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/signup/delete}" method="POST"  th:object="${userInfoForm}">
-
+                        <form th:action="@{/userInfList/delete}" method="POST"  th:object="${userInfoForm}">
+                             <input type="hidden" id="delete" th:field="*{userId}"/>
                             <table align="center">
                                 <tr>
                                     <td></td>

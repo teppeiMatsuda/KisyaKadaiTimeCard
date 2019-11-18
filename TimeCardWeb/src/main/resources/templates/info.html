@@ -26,7 +26,7 @@
 	<div id="maskDispDiv"></div>
 	<header id="header">
 		<div id="headerDiv">
-			<font id="toptxt" class="top">TOP</font><font class="top" id="vertical_line">|<i class="material-icons" id="home">home</i>　　Main Information</font><!-- <font id="titletxt">出退勤状況</font-->
+			<font id="toptxt" class="top">TOP</font><font class="top" id="vertical_line">|<i class="material-icons" id="home">home</i>　　Main Information|<i class="userinfo" id="userinfo"><a th:href="@{/userInfList}">一覧</a></i><!-- <i class="userinfo" id="userinfo">userinfo</i> --></font>
 			<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
 				<input type="submit" class="logout btn btn-outline-secondary" id="logout-btn" value="Logout"/>
 			</form>

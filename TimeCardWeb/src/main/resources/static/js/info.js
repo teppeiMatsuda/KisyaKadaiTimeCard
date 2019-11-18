@@ -37,7 +37,7 @@ $(function(){
 	}
 
 	// このままではIEで取り扱えない(forEachが使えない)ため配列に変換する。
-	const attButtonListArray = Array.prototype.slice.call(attButtonList,0); 
+	const attButtonListArray = Array.prototype.slice.call(attButtonList,0);
 
 	// 初期表示時に要素分だけ実行する。
 	buttonValueChange();
@@ -93,6 +93,9 @@ $(function(){
 		}).always(function(test){
 		});
 	}
+
 });
+
+
 
 

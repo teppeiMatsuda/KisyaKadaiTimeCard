@@ -1,5 +1,9 @@
 package com.example.form;
 
+import java.util.List;
+
+import com.example.model.MUser;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +18,5 @@ public class UserInfoForm {
     String endOfWorkTime;
     String teamId;
     String roleId;
+    List<MUser> userlist;
 }
