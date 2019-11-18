@@ -76,5 +76,5 @@ public interface TWorkShiftMapper {
 	 */
 	int updateByPrimaryKey(TWorkShift record);
 
-	int insertOrUpdate(List<TWorkShift> recordList);
+	int insertOrUpdate(TWorkShift recordList);
 }

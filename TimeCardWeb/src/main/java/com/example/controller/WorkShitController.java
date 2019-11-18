@@ -4,23 +4,22 @@ import static com.example.common.PathConst.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.SessionForm;
 import com.example.form.WorkShiftForm;
-import com.example.model.TWorkShift;
+import com.example.form.WorkShiftRegstForm;
 import com.example.service.workshift.WorkShiftCalendar;
 import com.example.service.workshift.WorkShiftService;
 
-@Controller
+@RestController
 @RequestMapping(WORK_SHIFT_PATH)
 public class WorkShitController {
 
@@ -51,8 +50,8 @@ public class WorkShitController {
 	}
 
 	@RequestMapping(path="/rgst", method=RequestMethod.POST)
-	public void rgstWorkShift(@RequestBody List<TWorkShift> workShiftList) {
-		workShiftService.InsertOrUpdateByList(workShiftList);
+	public int rgstWorkShift(@RequestBody WorkShiftRegstForm form) {
+		return workShiftService.InsertOrUpdateByList(form.getWorkShiftList());
 	}
 
 }

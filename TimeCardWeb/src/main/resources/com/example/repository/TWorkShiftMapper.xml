@@ -269,16 +269,14 @@
     where user_id = #{userId,jdbcType=INTEGER}
       and work_date = #{workDate,jdbcType=DATE}
   </update>
-  <update id="insertOrUpdate" parameterType="java.util.List">
+  <update id="insertOrUpdate" parameterType="com.example.model.TWorkShift">
     insert into t_work_shift (user_id, work_date, start_of_work_time,
       end_of_work_time, delete_flag)
-   	<foreach collection="workShiftList" item="shift" separator=",">
-    	values (#{shift.userId,jdbcType=INTEGER}, #{shift.workDate,jdbcType=DATE}, #{shift.startOfWorkTime,jdbcType=VARCHAR},
-      	#{shift.endOfWorkTime,jdbcType=VARCHAR}, #{shift.deleteFlag,jdbcType=CHAR})
-    </foreach>
+    values (#{userId,jdbcType=INTEGER}, #{workDate,jdbcType=DATE}, #{startOfWorkTime,jdbcType=VARCHAR},
+      #{endOfWorkTime,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR})
     on duplicate key update
-      startOfWorkTime = values(startOfWorkTime)
-      , endOfWorkTime = values(endOfWorkTime)
-      , deleteFlag = values(deleteFlag)
+      start_of_work_time = values(start_of_work_time)
+      , end_of_work_time = values(end_of_work_time)
+      , delete_flag = values(delete_flag)
   </update>
 </mapper>
