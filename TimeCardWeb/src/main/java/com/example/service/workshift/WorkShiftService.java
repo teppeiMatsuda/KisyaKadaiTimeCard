@@ -45,6 +45,16 @@ public class WorkShiftService {
 		return shiftList;
 	}
 
+	@Transactional
+	public int InsertOrUpdateByList(List<TWorkShift> workShiftList) {
+		int count = 0;
+		for(TWorkShift record: workShiftList) {
+			tWorkShiftMapper.insertOrUpdate(record);
+			count++;
+		}
+		return count;
+	}
+
 	public WorkShiftCalendar createCalendar(int userId, String month) {
 		WorkShiftCalendar workShiftCalendar = new WorkShiftCalendar();
 		DateTimeFormatter df = DateTimeFormatter.ofPattern("uuuu/MM/dd");

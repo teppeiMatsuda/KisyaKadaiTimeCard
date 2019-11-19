@@ -22,7 +22,7 @@
 <script src="/js/info.js"  th:src="@{/js/info.js}" defer></script>
 <script src="/js/workshift.js"  th:src="@{/js/workshift.js}" defer></script>
 </head>
-<body>
+<body th:onload='initWorkShift();'>
 	<div id="maskDispDiv"></div>
 	<header id="header">
 		<div id="headerDiv">
@@ -34,7 +34,7 @@
 	</header>
 		<div id=""></div>
 		<div id="main">
-			<table id="workshift">
+			<table id="workshift" >
 				<tr>
 					<td>Mon</td>
 					<td>Tue</td>
@@ -45,6 +45,9 @@
 					<td>Sun</td>
 				</tr>
 			</table>
+		</div>
+		<div>
+			<button id="editbtn">更新</button>
 		</div>
 		<div id="ButtonDiv" th:if="${roleId != '1'}">
 			<p id="attendtitle">出退勤登録</p>
@@ -58,5 +61,7 @@
 				<input type="button" id="request" value="申請(仮)" class="attend btn btn-success rounded-pill"/>
 			</p> -->
 		</div>
+		<input type="hidden" name="roleId" th:value="${roleId}" />
+		<input type="hidden" name="userId" th:value="${userId}" />
 </body>
 </html>

@@ -24,6 +24,7 @@
 		<sec:intercept-url pattern="/info" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
     	<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
     	<sec:intercept-url pattern="/workshift" access="permitAll" />
+    	<sec:intercept-url pattern="/workshift/rgst" access="hasRole('ROLE_ADMIN')" />
 
     	<!--
     		20191116 中原追加
