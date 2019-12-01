@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<title>メインページ(仮)</title>
+<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
+      rel="stylesheet">
+<link th:href="@{https://fonts.googleapis.com/css?family=Noto+Sans+JP:300&display=swap}" rel="stylesheet">
+<link th:href="@{https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300|Amatic+SC:700|Anton|Bangers|Caveat|Cherry+Swash:700|Corben:700|Creepster|Economica:700|Homemade+Apple|IM+Fell+DW+Pica+SC|Kaushan+Script|Londrina+Shadow|Montserrat+Subrayada|Oswald:700|Permanent+Marker|Quicksand|Roboto+Condensed:700|Teko|Vollkorn&display=swap}" rel="stylesheet">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>
+<link rel="stylesheet" th:href="@{/css/reset.css}" />
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/webjars/element-ui/lib/theme-chalk/index.css}" />
+<link rel="stylesheet" th:href="@{/css/info.css}" />
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
+<script src="/js/info.js"  th:src="@{/js/info.js}" defer></script>
+<script src="/js/userinfo.js"  th:src="@{/js/userinfo.js}" defer></script>
+</head>
+<body>
+    <div id="maskDispDiv"></div>
+    <header id="header">
+        <div id="headerDiv">
+            <font id="toptxt" class="top">TOP</font><font class="top" id="vertical_line">|<i class="material-icons" id="home">home</i>　　Main Information|<i class="userinfo" id="userinfo"><a th:href="@{/userInfList}">一覧</a></i><!-- <i class="userinfo" id="userinfo">userinfo</i> --></font>
+            			<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
+				<input type="submit" class="logout btn btn-outline-secondary" id="logout-btn" value="Logout"/>
+			</form>
+        </div>
+    </header>
+  <h1>ユーザー情報一覧</h1>
+<div th:replace="search::userSearch"></div>
+        <td align="right">
+          <a class="form-control-sm bg-primary" id="empchange" data-toggle="modal" data-target="#modal-emp-select1" th:if="${roleId == '1'}">新規登録</a>
+          <div th:replace="modal::userRegist"></div>
+        </td>
+  <table id="table">
+    <thead>
+      <tr>
+        <th>ユーザー名</th>
+        <!-- <th>所属</th>
+        <th>今月の稼働</th>
+        <th>残業時間</th>
+        <th>申請未承認有無</th> -->
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="user : ${userlist}" th:object="${user}" class="userinfoid" th:id="*{userId}">
+        <td th:text="*{userName}"></td>
+        <!-- <td th:text="*{team}"></td>
+        <td class="center" th:text="*{operationTime}"></td>
+        <td class="center" th:text="*{overTime}"></td>
+        <td class="center" th:text="*{applicationStatus}"></td> -->
+        <td class="center"><a th:href="@{/info/{id}(id=*{userId})}"><input type="button" value="詳細"></a></td>
+        <td align="center" th:id="*{userId}">
+          <a class="form-control-sm bg-primary edit-btn" id="edit-btn" th:value="*{userId}" data-toggle="modal" data-target="#modal-emp-select2" th:if="${roleId == '1'}">編集</a>
+          <div th:replace="modal::userEdit"></div>
+        </td>
+        <td align="right" th:id="*{userId}">
+          <a class="form-control-sm bg-primary delete-btn" th:value="*{userId}"  data-toggle="modal" data-target="#modal-emp-select3" th:if="${roleId == '1'}">削除</a>
+          <div th:replace="modal::userDelete" >
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<script>
+    var  userid;
+  $(".userinfoid").bind('click', function(){
+    var  id = $(this).attr('id');
+
+    if(userid==null){
+    	userid = id;
+    }
+    $('#edit').val(userid);
+	$('#delete').val(userid);
+  });
+</script>
+<!--   <script>
+	$('#delete-btn').click(function(){
+		var index = $(this).find('#delete-btn').index($(this));
+		console.log("hoge");
+		console.log(index);
+		$('#delete').val(index);
+	});
+	</script> -->
+</body>
+</html>

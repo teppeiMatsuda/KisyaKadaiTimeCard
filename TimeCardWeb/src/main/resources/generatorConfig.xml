@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 	<classPathEntry
-		location="C:\Users\work\.m2\repository\mysql\mysql-connector-java\8.0.17\mysql-connector-java-8.0.17.jar" />
+		location="C:\Users\user\.m2\repository\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar" />
 	<context id="context1">
 
 		<commentGenerator>
@@ -12,7 +12,7 @@
 
 		<!--JDBCのDB接続設定 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/timecard?serverTimezone=JST"
+			connectionURL="jdbc:mysql://localhost:3306/timecard?characterEncoding=utf8"
 			userId="mysql" password="password" />
 		<!--password="root" -->
 
@@ -24,14 +24,14 @@
 		<!-- エンティティ（Model）の設定 -->
 		<javaModelGenerator
 			targetPackage="com.example.model"
-			targetProject="KisyaKadaiTimeCard/src/main/java/">
+			targetProject="TimeCardWeb/src/main/java/">
 			<property name="trimStrings" value="true" />
 			<property name="enableSubPackages" value="true" />
 		</javaModelGenerator>
 
 		<!-- xmlの生成設定↓ -->
 		<sqlMapGenerator targetPackage="com.example.repository"
-			targetProject="KisyaKadaiTimeCard/src/main/resources/">
+			targetProject="TimeCardWeb/src/main/resources/">
 			<property name="trimStrings" value="true" />
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
@@ -39,7 +39,7 @@
 		<!-- DAO（Mapper/Repository）設定↓ -->
 		<javaClientGenerator
 			targetPackage="com.example.repository"
-			targetProject="KisyaKadaiTimeCard/src/main/java/" type="XMLMAPPER">
+			targetProject="TimeCardWeb/src/main/java/" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 

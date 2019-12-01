@@ -12,4 +12,17 @@ public class PathConst {
 	 */
 	public static final String INFO_PAGE = "/info";
 
+	// 20191109 五十嵐
+	/**
+	 * アカウント新規登録のパス
+	 */
+	public static final String SIGNUP_PAGE = "/signup";
+
+
+	public static final String WORK_SHIFT_PATH = "/workshift";
+
+	/**
+	 *
+	 */
+	public static final String USER_LIST_PAGE = "/userInfList";
 }

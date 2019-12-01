@@ -17,27 +17,43 @@
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
 <link rel="stylesheet" th:href="@{/webjars/element-ui/lib/theme-chalk/index.css}" />
 <link rel="stylesheet" th:href="@{/css/info.css}" />
+<link rel="stylesheet" th:href="@{/css/workshift.css}" />
 <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
 <script src="/js/info.js"  th:src="@{/js/info.js}" defer></script>
+<script src="/js/workshift.js"  th:src="@{/js/workshift.js}" defer></script>
 </head>
 <body>
 	<div id="maskDispDiv"></div>
 	<header id="header">
 		<div id="headerDiv">
-			<font id="toptxt" class="top">TOP</font><font class="top" id="vertical_line">|<i class="material-icons" id="home">home</i>　　Main Information</font><!-- <font id="titletxt">出退勤状況</font-->
-			<input type="submit" class="logout btn btn-outline-secondary" id="logout-btn" value="Logout"/>
+			<font id="toptxt" class="top">TOP</font><font class="top" id="vertical_line">|<i class="material-icons" id="home">home</i>　　Main Information|<i class="userinfo" id="userinfo"><a th:href="@{/userInfList}">一覧</a></i><!-- <i class="userinfo" id="userinfo">userinfo</i> --></font>
+			<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
+				<input type="submit" class="logout btn btn-outline-secondary" id="logout-btn" value="Logout"/>
+			</form>
 		</div>
 	</header>
 		<div id=""></div>
-		<form id= "mainForm" th:action="@{/logoutbutton}" method="post">
-		<div id="main">Mon　　　|　　　Tue　　　|　　　Wed　　　|　　　Thu　　 |　　　Fri　　　|　　　Sat</div>
-		<div id="ButtonDiv" th:if="${roleId != '1'}")>
+		<div id="main">
+			<table id="workshift">
+				<tr>
+					<td>Mon</td>
+					<td>Tue</td>
+					<td>Wed</td>
+					<td>Thu</td>
+					<td>Fri</td>
+					<td>Sat</td>
+					<td>Sun</td>
+				</tr>
+			</table>
+		</div>
+		<div id="ButtonDiv" th:if="${roleId != '1'}">
 			<p id="attendtitle">出退勤登録</p>
 			<hr id="horizon"></hr>
 			<p>
 				<input type="button" class="btnList attend btn btn-outline-primary rounded-pill" id="attendance" value="出勤" th:disabled = "${wStartFlg == true || roleId == '1'}"/>
 				<input type="button" class="btnList attend btn btn-outline-danger rounded-pill" id="leave" value="退勤" th:disabled = "${wStartFlg == false || wEndFlg == true || roleId == '1'}"/>
 			</p>
+
 			<!-- <p>
 				<input type="button" id="request" value="申請(仮)" class="attend btn btn-success rounded-pill"/>
 			</p> -->

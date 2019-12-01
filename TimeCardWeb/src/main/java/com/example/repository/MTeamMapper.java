@@ -1,10 +1,12 @@
 package com.example.repository;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.example.model.MTeam;
 import com.example.model.MTeamExample;
 import com.example.model.MTeamKey;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface MTeamMapper {
 
@@ -73,4 +75,10 @@ public interface MTeamMapper {
 	 * @mbg.generated
 	 */
 	int updateByPrimaryKey(MTeam record);
+
+	/**
+	 * 全ての有効なチーム情報を取得します。
+	 * @return 有効なチーム情報リスト
+	 */
+	List<MTeam> selectAll();
 }
